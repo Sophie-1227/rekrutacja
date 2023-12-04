@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <script src="../static/index.js"></script>
+    <title>Login Page</title>
+</head>
+<body>
+      {% if request.user.is_authenticated %}
+      <div id="topnav" class="topnav">
+        <a href="{% url 'home' %}">MENU</a>
+        <div class="dropdown">
+          <button class="dropbtn">FORMULARZE
+              <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+              <a href="{% url 'dane_osobowe' %}">DANE OSOBOWE</a>
+              <a href="{% url 'wyksztalcenie' %}">WYKSZTAŁCENIE</a>
+              <a href="{% url 'adres' %}">ADRES</a>
+            </div>
+        </div>
+        <a href="{% url 'zgloszenia' %}">ZGŁOSZENIA</a>
+        <a href="{% url 'ofer' %}">OFERTA</a>
+        <div class="dropdown">
+            <button class="dropbtn">MOJE KONTO
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href= "{% url 'settings' %}">USTAWIENIA</a>
+                <!-- <a href= "/notifications">POWIADOMIENIA</a> -->
+                <a href= "{% url 'logout' %}">WYLOGUJ SIĘ</a>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+        <div class="content">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+      
+      <!-- <p>{{ request.user.username }}</p>
+      <a style="color: black;" href="{% url 'logout' %}">Logout</a> -->
+    {% else %}
+    <div class="container">
+      <div class="content">
+        <h3>Zaloguj aby zobaczyć zawartosć tej strony</h3>
+        <a href="{% url 'login' %}">Login</a><br>
+        <a href="{% url 'signup' %}">Signup</a>
+      </div>
+    </div>
+    {% endif %}
+     </div><br>
+</body>
+</html>

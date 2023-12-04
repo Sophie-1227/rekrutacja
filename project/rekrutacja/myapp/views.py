@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
 from .forms import UserCreationForm, LoginForm
 
-# Create your views here.
 def index(request):
     return render(request, 'index.html')
 
@@ -36,3 +35,24 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+# dane osobowe
+def user_dane_osobowe(request):
+    pass
+
+# wyksztalcenie
+def user_wyksztalcenie(request):
+    pass
+
+# adres
+def user_adres(request):
+    pass
+
+def user_zgloszenia(request):
+    pass
+
+def user_ofer(request):
+    pass
+
+def user_settings(request):
+    pass
