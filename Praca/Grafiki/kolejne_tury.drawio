@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net" modified="2023-11-29T03:20:57.920Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="uD0-GsK1Pbn4Ag6WuE2n" version="22.1.4" type="device">
+  <diagram name="Page-1" id="jSeyBAp5w4ZD4YyK_Chf">
+    <mxGraphModel dx="1154" dy="1921" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LR_H5qHAiZAxek5boO8s-12" value="" style="ellipse;html=1;shape=startState;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="399" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-35" value="" style="group;fillColor=none;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="490" y="-30" width="1020" height="195" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-8" value="&lt;font color=&quot;#030303&quot;&gt;Złożenie zgłoszenia w kolejnej turze rekrutacji&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry y="95" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-13" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="LR_H5qHAiZAxek5boO8s-12" parent="LR_H5qHAiZAxek5boO8s-35" target="LR_H5qHAiZAxek5boO8s-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-76" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-15" value="&lt;font color=&quot;#030303&quot;&gt;Uzyskanie pozytywnego wyniku kwalifikacji&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry x="170" y="95" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-8" target="LR_H5qHAiZAxek5boO8s-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-19" value="&lt;font color=&quot;#030303&quot; style=&quot;font-size: 11px;&quot;&gt;Czy &lt;br&gt;przyjęty w poprzedniej turze?&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry x="337" y="85" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-15" target="LR_H5qHAiZAxek5boO8s-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-76" y="420" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-20" value="&lt;font color=&quot;#030303&quot;&gt;Złożnienie wymaganych dokumentów&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry x="630" y="85" width="124" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-19" target="LR_H5qHAiZAxek5boO8s-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="377" y="195" />
+              <mxPoint x="699" y="195" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-22" value="&lt;font color=&quot;#030303&quot; style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;NIE&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LR_H5qHAiZAxek5boO8s-21">
+          <mxGeometry x="-0.7064" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-23" target="LR_H5qHAiZAxek5boO8s-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-23" value="&lt;font color=&quot;#030303&quot;&gt;Złożenie rezygnacji z podjęcia studiów na poprzednim kierunku&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry x="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-19" target="LR_H5qHAiZAxek5boO8s-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="377" y="40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-27" value="&lt;font color=&quot;#030303&quot; style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;TAK&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="LR_H5qHAiZAxek5boO8s-24">
+          <mxGeometry x="-0.4015" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-28" value="&lt;font color=&quot;#030303&quot;&gt;Przyjęcie na nowy kierunek&lt;/font&gt;" style="whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry x="820" y="85" width="124" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-20" target="LR_H5qHAiZAxek5boO8s-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-30" value="" style="ellipse;html=1;shape=endState;fillColor=none;strokeColor=#ff0000;" vertex="1" parent="LR_H5qHAiZAxek5boO8s-35">
+          <mxGeometry x="990" y="100" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_H5qHAiZAxek5boO8s-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#030303;" edge="1" parent="LR_H5qHAiZAxek5boO8s-35" source="LR_H5qHAiZAxek5boO8s-28" target="LR_H5qHAiZAxek5boO8s-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

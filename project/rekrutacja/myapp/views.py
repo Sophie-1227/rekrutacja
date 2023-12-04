@@ -38,21 +38,27 @@ def user_logout(request):
 
 # dane osobowe
 def user_dane_osobowe(request):
+    #TODO: implement user_dane_osobowe and create html page
     pass
 
 # wyksztalcenie
 def user_wyksztalcenie(request):
+    #TODO: implement user_wyksztalcenie and create html page
     pass
 
 # adres
 def user_adres(request):
+    #TODO: implement user_adres and create html page
     pass
 
 def user_zgloszenia(request):
+    #TODO implement user_zgloszenia and create html page
     pass
 
 def user_ofer(request):
+    #TODO: implement user_ofer and create html page
     pass
 
 def user_settings(request):
+    #TODO: implement user_settings and create html page
     pass
