@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <script src="../static/index.js"></script>
-    <title>Login Page</title>
+    <title>Base Page</title>
 </head>
 <body>
       {% if request.user.is_authenticated %}
@@ -45,9 +45,9 @@
     <div class="container">
       <div class="content">
         <h3>Zaloguj aby zobaczyć zawartosć tej strony</h3>
-        <a class="button" href="{% url 'login' %}">Login</a><br>
+        <a class="button" href="{% url 'login' %}">Zaloguj się</a><br>
         <div>or</div>
-        <a class="button" href="{% url 'signup' %}">Signup</a>
+        <a class="button" href="{% url 'signup' %}">Utwórz konto</a>
       </div>
     </div>
     {% endif %}

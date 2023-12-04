@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <script src="../static/index.js"></script>
-    <title>Login Page</title>
+    <title>Signup Page</title>
 </head>
 <div class="container"> 
     <div class="content">
       <form method="POST" class="login-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button" type="submit">Signup</button>
-        <a href="{% url 'login' %}">Already have account?</a>
+        <input type="hidden" name="csrfmiddlewaretoken" value="sZpRzwXJ0A1rNVcC53BoswINXVJEm0Hj6Emd6wAgeD3PXNBxEJHQdSuwbK52S2oL">
+        <p>
+    <label for="id_username">Nazwa użytkownika:</label>
+    <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username"><br>
+      <!-- <span class="subtext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span> -->
+  </p>
+
+  <p>
+    <label for="id_password1">Hasło:</label>
+    <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">    
+  </p>
+  <p>
+    <label for="id_password2">Potwierdź hasło:</label>
+    <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+  </p>
+        <button class="button" type="submit">Utwórz konto</button><br>
+        <a href="/login/">Masz już konto?</a>
 </form>
       </div><br>
     </div>

@@ -9,12 +9,21 @@
 <div class="container"> 
     <div class="content">
       <form method="POST" class="login-form">
-    {% csrf_token %}
-    <h1>Login</h1>
-    {{ form.as_p }}
-    <button class="button" type="submit">Login</button><br>
-    <a href="{% url 'signup' %}">Don't have an account? Create one</a>
-</form>
+        <input type="hidden" name="csrfmiddlewaretoken" value="x33X8XZA7IdcfopymhrWt2woi1W5MwhQbI0jFXC7lLfApgOtVXxoeoi7wQitiyYi">
+        <h1>Logowanie</h1>
+        <p>
+        <label for="id_username">Nazwa użytkownika:</label>
+        <input type="text" name="username" required="" id="id_username">  
+        </p>
+      <p class="wrapper">
+        <div class="right">
+          <label for="id_password">Hasło:</label>
+        <input type="password" name="password" required="" id="id_password">
+        </div>
+      </p>
+        <button class="button" type="submit">Zaloguj</button><br>
+        <a href="/signup/">Utwórz konto</a>
+    </form>
       </div><br>
     </div>
   </div>
