@@ -45,8 +45,9 @@
     <div class="container">
       <div class="content">
         <h3>Zaloguj aby zobaczyć zawartosć tej strony</h3>
-        <a href="{% url 'login' %}">Login</a><br>
-        <a href="{% url 'signup' %}">Signup</a>
+        <a class="button" href="{% url 'login' %}">Login</a><br>
+        <div>or</div>
+        <a class="button" href="{% url 'signup' %}">Signup</a>
       </div>
     </div>
     {% endif %}

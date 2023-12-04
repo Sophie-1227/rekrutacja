@@ -127,12 +127,12 @@ class Personal_data(models.Model):
         (INNA, "Inna")
     ]
     # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
-    pesel = models.IntegerField(max_length=11)
+    pesel = models.IntegerField
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    phone = models.IntegerField(max_length=9) #TODO add country code and template
+    phone = models.IntegerField #TODO add country code and template
     date_of_birth = models.DateField
     father_name = models.CharField(max_length=100)
     is_polish = models.CharField(max_length=3, choices=tak_nie, default=TAK)
@@ -167,7 +167,7 @@ class High_school(models.Model):
 class Documents_matura(models.Model):
     # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
     exam_type = models.CharField(max_length=100) # TODO: add choices
-    exam_year = models.IntegerField(max_length=4)
+    exam_year = models.IntegerField
     exam_number = models.CharField(max_length=13)
     exam_issuer = models.CharField(max_length=100)
     exam_date = models.DateField
@@ -178,7 +178,7 @@ class Documents_achivment(models.Model):
     # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
     achivment_type= models.CharField(max_length=100) # TODO: add choices
     achivment_result= models.CharField(max_length=50) # TODO: add choices
-    achivment_year= models.IntegerField(max_length=4)
+    achivment_year= models.IntegerField
     achivment_issuer = models.CharField(max_length=100)
     achivment_city = models.CharField(max_length=100)
     achivment_country = models.CharField(max_length=100)
@@ -188,7 +188,7 @@ class Documents_dyploma(models.Model):
     dyploma_type= models.CharField(max_length=100) # TODO: add choices
     dyploma_result= models.CharField(max_length=3) # TODO: add choices
     dyploma_avg= models.DecimalField(decimal_places=3, max_digits=5)
-    dyploma_year= models.IntegerField(max_length=4)
+    dyploma_year= models.IntegerField
     dyploma_issuer = models.CharField(max_length=100)
     dyploma_city = models.CharField(max_length=100)
     dyploma_country = models.CharField(max_length=100)
@@ -196,22 +196,22 @@ class Documents_dyploma(models.Model):
 
 class Matura_results(models.Model):
     # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
-    polski_p = models.IntegerField(max_length=3)
-    polski_r = models.IntegerField(max_length=3)
-    matematyka_p = models.IntegerField(max_length=3)
-    matematyka_r = models.IntegerField(max_length=3)
-    angielski_p = models.IntegerField(max_length=3)
-    angielski_r = models.IntegerField(max_length=3)
-    fizyka_p = models.IntegerField(max_length=3)
-    fizyka_r = models.IntegerField(max_length=3)
-    chemia_p = models.IntegerField(max_length=3)
-    chemia_r = models.IntegerField(max_length=3)
-    geografia_p = models.IntegerField(max_length=3)
-    geografia_r = models.IntegerField(max_length=3)
-    biologia_p = models.IntegerField(max_length=3)
-    biologia_r = models.IntegerField(max_length=3)
-    informatyka_p = models.IntegerField(max_length=3)
-    informatyka_r = models.IntegerField(max_length=3)
+    polski_p = models.IntegerField
+    polski_r = models.IntegerField
+    matematyka_p = models.IntegerField
+    matematyka_r = models.IntegerField
+    angielski_p = models.IntegerField
+    angielski_r = models.IntegerField
+    fizyka_p = models.IntegerField
+    fizyka_r = models.IntegerField
+    chemia_p = models.IntegerField
+    chemia_r = models.IntegerField
+    geografia_p = models.IntegerField
+    geografia_r = models.IntegerField
+    biologia_p = models.IntegerField
+    biologia_r = models.IntegerField
+    informatyka_p = models.IntegerField
+    informatyka_r = models.IntegerField
 
 # class Preferences(models.Model): #redundancja -> widok?
 #     ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
@@ -224,13 +224,13 @@ class Matura_results(models.Model):
 
 class Applications(models.Model):
     # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
-    preference = models.IntegerField(max_length=1)
+    preference = models.IntegerField
     faculty = models.CharField(max_length=3) # TODO: add choices / automation based on major
     major = models.CharField(max_length=3)
-    tour = models.IntegerField(max_length=1)
+    tour = models.IntegerField
     is_active = models.BooleanField
     is_condition = models.BooleanField
-    score = models.IntegerField(max_length=3)
+    score = models.IntegerField
     is_paid = models.BooleanField
     is_qualified = models.BooleanField
     are_documents = models.BooleanField
