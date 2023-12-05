@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
-from .forms import UserCreationForm, LoginForm, PersonalDataForm
+from .forms import UserCreationForm, LoginForm, PersonalDataForm, AddressForm
+from .models import User, Personal_data, AuthUser
 
 def index(request):
     return render(request, 'index.html')
@@ -38,7 +39,6 @@ def user_logout(request):
 
 # dane osobowe
 def user_dane_osobowe(request):
-    #TODO: implement user_dane_osobowe and create html page
     if request.method == 'POST':
         form = PersonalDataForm(request.POST)
         if form.is_valid():
@@ -56,7 +56,14 @@ def user_wyksztalcenie(request):
 # adres
 def user_adres(request):
     #TODO: implement user_adres and create html page
-    pass
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = AddressForm()
+
+    return render(request, 'adres.html', {'form': form})
 
 def user_zgloszenia(request):
     #TODO implement user_zgloszenia and create html page
@@ -69,3 +76,8 @@ def user_ofer(request):
 def user_settings(request):
     #TODO: implement user_settings and create html page
     pass
+
+def usun_rekordy(request):
+    Personal_data.objects.all().delete()
+    AuthUser.objects.all().delete()
+    return render(request, 'usun_rekordy.html')

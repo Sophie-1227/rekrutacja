@@ -134,7 +134,7 @@ class Personal_data(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.PositiveIntegerField() #TODO add country code and template
-    date_of_birth = models.DateField()
+    # date_of_birth = models.DateField()
     father_name = models.CharField(max_length=100)
     is_polish = models.CharField(max_length=3, choices=tak_nie, default=TAK)
     sex = models.CharField(max_length=9, choices=sex_choices)
