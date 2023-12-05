@@ -2,6 +2,6 @@
 <form method="post" class="{% url 'dane_osobowe' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Submit</button>
+    <button class="button" type="submit">Submit</button>
 </form>
 {% endblock %}

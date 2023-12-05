@@ -141,3 +141,10 @@
     display: table;
     text-align: center;
   }
+
+  /* Styl dla inputu formularzy */
+  .input {
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
