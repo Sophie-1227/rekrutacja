@@ -128,7 +128,7 @@ class Personal_data(models.Model):
         (INNA, "Inna")
     ]
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    pesel = models.PositiveIntegerField()
+    pesel = models.PositiveIntegerField(unique=True)
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
