@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
-from .forms import UserCreationForm, LoginForm
+from .forms import UserCreationForm, LoginForm, PersonalDataForm
 
 def index(request):
     return render(request, 'index.html')
@@ -39,7 +39,14 @@ def user_logout(request):
 # dane osobowe
 def user_dane_osobowe(request):
     #TODO: implement user_dane_osobowe and create html page
-    pass
+    if request.method == 'POST':
+        form = PersonalDataForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = PersonalDataForm()
+
+    return render(request, 'personal_data.html', {'form': form})
 
 # wyksztalcenie
 def user_wyksztalcenie(request):

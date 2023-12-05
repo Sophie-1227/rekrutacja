@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -49,7 +50,7 @@ class AuthUser(models.Model):
 
 
 class AuthUserGroups(models.Model):
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
     class Meta:
@@ -126,20 +127,20 @@ class Personal_data(models.Model):
         (MEZCZYZNA, "Mężczyzna"),
         (INNA, "Inna")
     ]
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
-    pesel = models.IntegerField
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
+    pesel = models.PositiveIntegerField()
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    phone = models.IntegerField #TODO add country code and template
-    date_of_birth = models.DateField
+    phone = models.PositiveIntegerField() #TODO add country code and template
+    date_of_birth = models.DateField()
     father_name = models.CharField(max_length=100)
     is_polish = models.CharField(max_length=3, choices=tak_nie, default=TAK)
     sex = models.CharField(max_length=9, choices=sex_choices)
 
 class Adress(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     country = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=6) #TODO: create template for anwsering with _ _ - _ _ _
     city = models.CharField(max_length=100)
@@ -148,7 +149,7 @@ class Adress(models.Model):
     apartment_number = models.CharField(max_length=4)
 
 class High_school(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     LICEUM_O = "Liceum Ogólnokształcące"
     LICEUM_P = "Liceum Profilowane"
     TECHNIKUM = "Technikum"
@@ -165,7 +166,7 @@ class High_school(models.Model):
     school_city = models.CharField(max_length=100)
 
 class Documents_matura(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     exam_type = models.CharField(max_length=100) # TODO: add choices
     exam_year = models.IntegerField
     exam_number = models.CharField(max_length=13)
@@ -175,7 +176,7 @@ class Documents_matura(models.Model):
     exam_country = models.CharField(max_length=100)
 
 class Documents_achivment(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     achivment_type= models.CharField(max_length=100) # TODO: add choices
     achivment_result= models.CharField(max_length=50) # TODO: add choices
     achivment_year= models.IntegerField
@@ -184,7 +185,7 @@ class Documents_achivment(models.Model):
     achivment_country = models.CharField(max_length=100)
 
 class Documents_dyploma(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     dyploma_type= models.CharField(max_length=100) # TODO: add choices
     dyploma_result= models.CharField(max_length=3) # TODO: add choices
     dyploma_avg= models.DecimalField(decimal_places=3, max_digits=5)
@@ -195,7 +196,7 @@ class Documents_dyploma(models.Model):
 
 
 class Matura_results(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     polski_p = models.IntegerField
     polski_r = models.IntegerField
     matematyka_p = models.IntegerField
@@ -223,7 +224,7 @@ class Matura_results(models.Model):
 #     preference6 = models.CharField(max_length=3)
 
 class Applications(models.Model):
-    # ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
+  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     preference = models.IntegerField
     faculty = models.CharField(max_length=3) # TODO: add choices / automation based on major
     major = models.CharField(max_length=3)
