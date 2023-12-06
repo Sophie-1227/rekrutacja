@@ -63,6 +63,26 @@ def user_matura(request):
 
     return render(request, 'matura.html', {'form': form})
 
+def user_osiagniecia(request):
+    if request.method == 'POST':
+        form = AchivmentDocumentsForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = AchivmentDocumentsForm()
+
+    return render(request, 'achivments.html', {'form': form})
+
+def user_dyplom(request):
+    if request.method == 'POST':
+        form = DyplomaDocumentsForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = DyplomaDocumentsForm()
+
+    return render(request, 'dyplom.html', {'form': form})
+
 # adres
 def user_adres(request):
     if request.method == 'POST':

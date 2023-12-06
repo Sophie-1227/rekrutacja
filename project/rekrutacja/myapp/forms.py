@@ -102,7 +102,7 @@ class MaturaDocumentsForm(forms.ModelForm):
             'exam_country': forms.TextInput(attrs={'class': 'input'}),
         }
 
-class MaturaDocumentsForm(forms.ModelForm):
+class AchivmentDocumentsForm(forms.ModelForm):
     class Meta:
         model = Documents_achivment
         fields = ['achivment_type', 'achivment_issuer', 'achivment_city', 'achivment_country']
