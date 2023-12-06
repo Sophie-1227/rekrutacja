@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
-from .forms import UserCreationForm, LoginForm, PersonalDataForm, AddressForm
+from .forms import *
 from .models import User, Personal_data, AuthUser
 
 def index(request):
@@ -53,9 +53,17 @@ def user_wyksztalcenie(request):
     #TODO: implement user_wyksztalcenie and create html page
     pass
 
+def user_matura(request):
+    if request.method =='POST':
+        form = MaturaDocumentsForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            form = MaturaDocumentsForm()
+    return render(request, 'matura.html', {'form': form})
+
 # adres
 def user_adres(request):
-    #TODO: implement user_adres and create html page
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():

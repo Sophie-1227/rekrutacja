@@ -167,7 +167,23 @@ class High_school(models.Model):
 
 class Documents_matura(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    exam_type = models.CharField(max_length=100) # TODO: add choices
+    IB = "Matura IB"
+    Europejska = "Matura Europejska"
+    Dwujezyczna = "Polska matura dwujęzyczna"
+    Zagraniczna = "Matura zagranczna"
+    Stara25 = "Polska stara matura (skala ocen 2-5)"
+    Stara16 = "Polska stara matura (skala ocen 1-6)"
+    Nowa = "Polska nowa matura"
+    Exam_types = [
+        (IB, "Matura IB"),
+        (Europejska, "Matura Europejska"),
+        (Dwujezyczna, "Polska matura dwujęzyczna"),
+        (Zagraniczna, "Matura zagranczna"),
+        (Stara25, "Polska stara matura (skala ocen 2-5)"),
+        (Stara16, "Polska stara matura (skala ocen 1-6)"),
+        (Nowa, "Polska nowa matura"),
+    ]
+    exam_type = models.CharField(max_length=100)
     exam_year = models.IntegerField
     exam_number = models.CharField(max_length=13)
     exam_issuer = models.CharField(max_length=100)
@@ -178,7 +194,7 @@ class Documents_matura(models.Model):
 class Documents_achivment(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     achivment_type= models.CharField(max_length=100) # TODO: add choices
-    achivment_result= models.CharField(max_length=50) # TODO: add choices
+    achivment_result= models.CharField(max_length=50) # TODO: add choices #TODO change to boolean isaccepted avaible for admin only
     achivment_year= models.IntegerField
     achivment_issuer = models.CharField(max_length=100)
     achivment_city = models.CharField(max_length=100)
