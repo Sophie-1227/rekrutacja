@@ -213,22 +213,22 @@ class Documents_dyploma(models.Model):
 
 class Matura_results(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    polski_p = models.IntegerField
-    polski_r = models.IntegerField
-    matematyka_p = models.IntegerField
-    matematyka_r = models.IntegerField
-    angielski_p = models.IntegerField
-    angielski_r = models.IntegerField
-    fizyka_p = models.IntegerField
-    fizyka_r = models.IntegerField
-    chemia_p = models.IntegerField
-    chemia_r = models.IntegerField
-    geografia_p = models.IntegerField
-    geografia_r = models.IntegerField
-    biologia_p = models.IntegerField
-    biologia_r = models.IntegerField
-    informatyka_p = models.IntegerField
-    informatyka_r = models.IntegerField
+    polski_p = models.IntegerField(null=True)
+    polski_r = models.IntegerField(null=True)
+    matematyka_p = models.IntegerField(null=True)
+    matematyka_r = models.IntegerField(null=True)
+    angielski_p = models.IntegerField(null=True)
+    angielski_r = models.IntegerField(null=True)
+    fizyka_p = models.IntegerField(null=True)
+    fizyka_r = models.IntegerField(null=True)
+    chemia_p = models.IntegerField(null=True)
+    chemia_r = models.IntegerField(null=True)
+    geografia_p = models.IntegerField(null=True)
+    geografia_r = models.IntegerField(null=True)
+    biologia_p = models.IntegerField(null=True)
+    biologia_r = models.IntegerField(null=True)
+    informatyka_p = models.IntegerField(null=True)
+    informatyka_r = models.IntegerField(null=True)
 
 # class Preferences(models.Model): #redundancja -> widok?
 #     ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)

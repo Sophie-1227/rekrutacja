@@ -144,51 +144,51 @@ class DyplomaDocumentsForm(forms.ModelForm):
             'dyploma_country': forms.TextInput(attrs={'class': 'input'}),
         }
 
-# class MaturaResultsForm(forms.ModelForm):
-#     class Meta:
-#         model = Matura_results
-#         fields = [
-#             'polski_p', 'polski_r', 'matematyka_p', 'matematyka_r',
-#             'angielski_p', 'angielski_r', 'fizyka_p', 'fizyka_r',
-#             'chemia_p', 'chemia_r', 'geografia_p', 'geografia_r',
-#             'biologia_p', 'biologia_r', 'informatyka_p', 'informatyka_r'
-#         ]
-#         labels = {
-#             'polski_p': 'Polski Poziom Podstawowy',
-#             'polski_r': 'Polski Poziom Rozszerzony',
-#             'matematyka_p': 'Matematyka Poziom Podstawowy',
-#             'matematyka_r': 'Matematyka Poziom Rozszerzony',
-#             'angielski_p': 'Angielski Poziom Podstawowy',
-#             'angielski_r': 'Angielski Poziom Rozszerzony',
-#             'fizyka_p': 'Fizyka Poziom Podstawowy',
-#             'fizyka_r': 'Fizyka Poziom Rozszerzony',
-#             'chemia_p': 'Chemia Poziom Podstawowy',
-#             'chemia_r': 'Chemia Poziom Rozszerzony',
-#             'geografia_p': 'Geografia Poziom Podstawowy',
-#             'geografia_r': 'Geografia Poziom Rozszerzony',
-#             'biologia_p': 'Biologia Poziom Podstawowy',
-#             'biologia_r': 'Biologia Poziom Rozszerzony',
-#             'informatyka_p': 'Informatyka Poziom Podstawowy',
-#             'informatyka_r': 'Informatyka Poziom Rozszerzony',
-#         }
-#         widgets = {
-#             'polski_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'polski_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'matematyka_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'matematyka_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'angielski_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'angielski_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'fizyka_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'fizyka_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'chemia_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'chemia_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'geografia_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'geografia_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'biologia_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'biologia_r': forms.NumberInput(attrs={'class': 'input'}),
-#             'informatyka_p': forms.NumberInput(attrs={'class': 'input'}),
-#             'informatyka_r': forms.NumberInput(attrs={'class': 'input'}),
-#         }
+class MaturaResultsForm(forms.ModelForm):
+    class Meta:
+        model = Matura_results
+        fields = [
+            'polski_p', 'polski_r', 'matematyka_p', 'matematyka_r',
+            'angielski_p', 'angielski_r', 'fizyka_p', 'fizyka_r',
+            'chemia_p', 'chemia_r', 'geografia_p', 'geografia_r',
+            'biologia_p', 'biologia_r', 'informatyka_p', 'informatyka_r'
+        ]
+        labels = {
+            'polski_p': 'Polski Poziom Podstawowy',
+            'polski_r': 'Polski Poziom Rozszerzony',
+            'matematyka_p': 'Matematyka Poziom Podstawowy',
+            'matematyka_r': 'Matematyka Poziom Rozszerzony',
+            'angielski_p': 'Angielski Poziom Podstawowy',
+            'angielski_r': 'Angielski Poziom Rozszerzony',
+            'fizyka_p': 'Fizyka Poziom Podstawowy',
+            'fizyka_r': 'Fizyka Poziom Rozszerzony',
+            'chemia_p': 'Chemia Poziom Podstawowy',
+            'chemia_r': 'Chemia Poziom Rozszerzony',
+            'geografia_p': 'Geografia Poziom Podstawowy',
+            'geografia_r': 'Geografia Poziom Rozszerzony',
+            'biologia_p': 'Biologia Poziom Podstawowy',
+            'biologia_r': 'Biologia Poziom Rozszerzony',
+            'informatyka_p': 'Informatyka Poziom Podstawowy',
+            'informatyka_r': 'Informatyka Poziom Rozszerzony',
+        }
+        widgets = {
+            'polski_p': forms.NumberInput(attrs={'class': 'input'}),
+            'polski_r': forms.NumberInput(attrs={'class': 'input'}),
+            'matematyka_p': forms.NumberInput(attrs={'class': 'input'}),
+            'matematyka_r': forms.NumberInput(attrs={'class': 'input'}),
+            'angielski_p': forms.NumberInput(attrs={'class': 'input'}),
+            'angielski_r': forms.NumberInput(attrs={'class': 'input'}),
+            'fizyka_p': forms.NumberInput(attrs={'class': 'input'}),
+            'fizyka_r': forms.NumberInput(attrs={'class': 'input'}),
+            'chemia_p': forms.NumberInput(attrs={'class': 'input'}),
+            'chemia_r': forms.NumberInput(attrs={'class': 'input'}),
+            'geografia_p': forms.NumberInput(attrs={'class': 'input'}),
+            'geografia_r': forms.NumberInput(attrs={'class': 'input'}),
+            'biologia_p': forms.NumberInput(attrs={'class': 'input'}),
+            'biologia_r': forms.NumberInput(attrs={'class': 'input'}),
+            'informatyka_p': forms.NumberInput(attrs={'class': 'input'}),
+            'informatyka_r': forms.NumberInput(attrs={'class': 'input'}),
+        }
 
 # class ApplicationsForm(forms.ModelForm):
 #     class Meta:

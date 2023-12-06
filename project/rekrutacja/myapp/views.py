@@ -56,12 +56,15 @@ def user_wyksztalcenie(request):
 def user_matura(request):
     if request.method == 'POST':
         form = MaturaDocumentsForm(request.POST)
-        if form.is_valid():
+        form_results = MaturaResultsForm(request.POST)
+        if form.is_valid() and form_results.is_valid():
             form.save()
+            form_results.save()
     else:
         form = MaturaDocumentsForm()
+        form_results = MaturaResultsForm()
 
-    return render(request, 'matura.html', {'form': form})
+    return render(request, 'matura.html', {'form': form, 'form_results': form_results})
 
 def user_osiagniecia(request):
     if request.method == 'POST':
