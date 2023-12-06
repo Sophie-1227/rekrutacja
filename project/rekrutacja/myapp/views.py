@@ -51,15 +51,16 @@ def user_dane_osobowe(request):
 # wyksztalcenie
 def user_wyksztalcenie(request):
     #TODO: implement user_wyksztalcenie and create html page
-    pass
+    return render(request, 'wyksztalcenie.html')
 
 def user_matura(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = MaturaDocumentsForm(request.POST)
         if form.is_valid():
             form.save()
-        else:
-            form = MaturaDocumentsForm()
+    else:
+        form = MaturaDocumentsForm()
+
     return render(request, 'matura.html', {'form': form})
 
 # adres

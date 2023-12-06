@@ -7,7 +7,7 @@
   /* Applies to all html files in body */
   body {
     font-family: "Helvetica", Sans-Serif;
-    background-image: url("../static/img/Politechnika-Wrocławska.jpg");
+    background-image: url("../img/Politechnika-Wrocławska.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
