@@ -184,10 +184,10 @@ class Documents_matura(models.Model):
         (Nowa, "Polska nowa matura"),
     ]
     exam_type = models.CharField(max_length=100)
-    exam_year = models.IntegerField
+    exam_year = models.IntegerField(null=True)
     exam_number = models.CharField(max_length=13)
     exam_issuer = models.CharField(max_length=100)
-    exam_date = models.DateField
+    # exam_date = models.DateField
     exam_city = models.CharField(max_length=100)
     exam_country = models.CharField(max_length=100)
 
@@ -195,7 +195,7 @@ class Documents_achivment(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     achivment_type= models.CharField(max_length=100) # TODO: add choices
     achivment_result= models.CharField(max_length=50) # TODO: add choices #TODO change to boolean isaccepted avaible for admin only
-    achivment_year= models.IntegerField
+    achivment_year= models.IntegerField(null=True)
     achivment_issuer = models.CharField(max_length=100)
     achivment_city = models.CharField(max_length=100)
     achivment_country = models.CharField(max_length=100)
@@ -205,7 +205,7 @@ class Documents_dyploma(models.Model):
     dyploma_type= models.CharField(max_length=100) # TODO: add choices
     dyploma_result= models.CharField(max_length=3) # TODO: add choices
     dyploma_avg= models.DecimalField(decimal_places=3, max_digits=5)
-    dyploma_year= models.IntegerField
+    dyploma_year= models.IntegerField(null=True)
     dyploma_issuer = models.CharField(max_length=100)
     dyploma_city = models.CharField(max_length=100)
     dyploma_country = models.CharField(max_length=100)
@@ -241,14 +241,14 @@ class Matura_results(models.Model):
 
 class Applications(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    preference = models.IntegerField
+    preference = models.IntegerField(null=True)
     faculty = models.CharField(max_length=3) # TODO: add choices / automation based on major
     major = models.CharField(max_length=3)
-    tour = models.IntegerField
-    is_active = models.BooleanField
-    is_condition = models.BooleanField
-    score = models.IntegerField
-    is_paid = models.BooleanField
-    is_qualified = models.BooleanField
-    are_documents = models.BooleanField
-    decision = models.BooleanField
+    tour = models.IntegerField(null=True)
+    is_active = models.BooleanField(default=True)
+    is_condition = models.BooleanField (default=False)
+    score = models.IntegerField(null=True)
+    is_paid = models.BooleanField(default=False)
+    is_qualified = models.BooleanField(null=True)
+    are_documents = models.BooleanField(default=False)
+    decision = models.BooleanField(null=True)
