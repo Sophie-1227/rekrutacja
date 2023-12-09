@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/styles.css">
-    <script src="../static/index.js"></script>
-    <title>Login Page</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../static/styles.css">
+  <script src="../static/index.js"></script>
+  <title>Login Page</title>
 </head>
+
 <body style="background-image: url('../static/img/Politechnika-Wrocławska.jpg');">
-  <div class="container"> 
+  <div class="container">
     <div class="content">
       <form method="POST" class="login-form">
-    {% csrf_token %}
-    <h1>Logowanie</h1>
-    {{ form.as_p }}
-    <button class="button" type="submit">Zaloguj</button><br><br>
-    <a href="{% url 'signup' %}">Utwórz konto</a>
-</form>
-      </div><br>
-    </div>
+        {% csrf_token %}
+        <h1>Logowanie</h1>
+        {{ form.as_p }}
+        <button class="button" type="submit">Zaloguj</button><br><br>
+        <a href="{% url 'signup' %}">Utwórz konto</a>
+      </form>
+    </div><br>
+  </div>
   </div>
 </body>
+
 </html>

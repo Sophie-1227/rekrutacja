@@ -1,24 +1,28 @@
-from django import forms 
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from myapp.models import Personal_data, Adress, High_school, Documents_matura, Documents_achivment, Documents_dyploma, Matura_results, Applications
 
+
 class SignupForm(UserCreationForm):
     class Meta:
-        model = User 
+        model = User
         fields = ['username', 'password1', 'password2']
-        labels = {'username':'Login', 
-                  'password1':'Hasło', 
-                  'password2':'Potwierdź hasło',}
+        labels = {'username': 'Login',
+                  'password1': 'Hasło',
+                  'password2': 'Potwierdź hasło', }
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+
 class PersonalDataForm(forms.ModelForm):
     class Meta:
         model = Personal_data
-        fields = ['pesel', 'first_name', 'second_name', 'last_name', 'email', 'phone', 'father_name', 'is_polish', 'sex']
+        fields = ['pesel', 'first_name', 'second_name', 'last_name',
+                  'email', 'phone', 'father_name', 'is_polish', 'sex']
         labels = {
             'pesel': 'PESEL',
             'first_name': 'Imię',
@@ -41,10 +45,12 @@ class PersonalDataForm(forms.ModelForm):
             'sex': forms.Select(attrs={'class': 'input'}),
         }
 
+
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Adress
-        fields = ['country', 'postal_code', 'city', 'street', 'building_number', 'apartment_number']
+        fields = ['country', 'postal_code', 'city',
+                  'street', 'building_number', 'apartment_number']
         labels = {
             'country': 'Kraj',
             'city': 'Miasto',
@@ -62,10 +68,12 @@ class AddressForm(forms.ModelForm):
             'apartment_number': forms.TextInput(attrs={'class': 'input'}),
         }
 
+
 class HighSchoolForms(forms.Form):
     class Meta:
         model = High_school
-        fields = ['school_type', 'school_name', 'school_country', 'school_city']
+        fields = ['school_type', 'school_name',
+                  'school_country', 'school_city']
         widgets = {
             'school_type': 'Rodzaj szkoły',
             'school_name': 'Nazwa szkoły',
@@ -79,10 +87,12 @@ class HighSchoolForms(forms.Form):
             'school_city': forms.TextInput(attrs={'class': 'input'}),
         }
 
+
 class MaturaDocumentsForm(forms.ModelForm):
     class Meta:
         model = Documents_matura
-        fields = ['exam_type', 'exam_number', 'exam_issuer', 'exam_city', 'exam_country']
+        fields = ['exam_type', 'exam_number',
+                  'exam_issuer', 'exam_city', 'exam_country']
         labels = {
             'exam_type': 'Rodzaj matury',
             # 'exam_year': 'Rok zdawania matury',
@@ -102,10 +112,12 @@ class MaturaDocumentsForm(forms.ModelForm):
             'exam_country': forms.TextInput(attrs={'class': 'input'}),
         }
 
+
 class AchivmentDocumentsForm(forms.ModelForm):
     class Meta:
         model = Documents_achivment
-        fields = ['achivment_type', 'achivment_issuer', 'achivment_city', 'achivment_country']
+        fields = ['achivment_type', 'achivment_issuer',
+                  'achivment_city', 'achivment_country']
         labels = {
             'achivment_type': 'Rodzaj dokumentu',
             # 'achivment_year': 'Rok uzyskania dokumentu',
@@ -121,10 +133,12 @@ class AchivmentDocumentsForm(forms.ModelForm):
             'achivment_country': forms.TextInput(attrs={'class': 'input'}),
         }
 
+
 class DyplomaDocumentsForm(forms.ModelForm):
     class Meta:
         model = Documents_dyploma
-        fields = ['dyploma_type', 'dyploma_result', 'dyploma_avg', 'dyploma_issuer', 'dyploma_city', 'dyploma_country']
+        fields = ['dyploma_type', 'dyploma_result', 'dyploma_avg',
+                  'dyploma_issuer', 'dyploma_city', 'dyploma_country']
         labels = {
             'dyploma_type': 'Rodzaj dyplomu',
             'dyploma_result': 'Ocena na dyplomie',
@@ -143,6 +157,7 @@ class DyplomaDocumentsForm(forms.ModelForm):
             'dyploma_city': forms.TextInput(attrs={'class': 'input'}),
             'dyploma_country': forms.TextInput(attrs={'class': 'input'}),
         }
+
 
 class MaturaResultsForm(forms.ModelForm):
     class Meta:

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -74,7 +75,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey(
+        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     action_time = models.DateTimeField()
 
@@ -112,17 +114,18 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
+
 class Personal_data(models.Model):
-    TAK="Tak"
-    NIE="Nie"
-    tak_nie=[
+    TAK = "Tak"
+    NIE = "Nie"
+    tak_nie = [
         (TAK, "tak"),
         (NIE, "nie")
     ]
-    KOBIETA="Kobieta"
+    KOBIETA = "Kobieta"
     MEZCZYZNA = "Mężczyzna"
     INNA = "Inna"
-    sex_choices =[
+    sex_choices = [
         (KOBIETA, "Kobieta"),
         (MEZCZYZNA, "Mężczyzna"),
         (INNA, "Inna")
@@ -133,20 +136,23 @@ class Personal_data(models.Model):
     second_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    phone = models.PositiveIntegerField() #TODO add country code and template
+    phone = models.PositiveIntegerField()  # TODO add country code and template
     # date_of_birth = models.DateField()
     father_name = models.CharField(max_length=100)
     is_polish = models.CharField(max_length=3, choices=tak_nie, default=TAK)
     sex = models.CharField(max_length=9, choices=sex_choices)
 
+
 class Adress(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     country = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=6) #TODO: create template for anwsering with _ _ - _ _ _
+    # TODO: create template for anwsering with _ _ - _ _ _
+    postal_code = models.CharField(max_length=6)
     city = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
     building_number = models.CharField(max_length=10)
     apartment_number = models.CharField(max_length=4)
+
 
 class High_school(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
@@ -164,6 +170,7 @@ class High_school(models.Model):
     school_name = models.CharField(max_length=200)
     school_country = models.CharField(max_length=100)
     school_city = models.CharField(max_length=100)
+
 
 class Documents_matura(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
@@ -191,21 +198,24 @@ class Documents_matura(models.Model):
     exam_city = models.CharField(max_length=100)
     exam_country = models.CharField(max_length=100)
 
+
 class Documents_achivment(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    achivment_type= models.CharField(max_length=100) # TODO: add choices
-    achivment_result= models.CharField(max_length=50) # TODO: add choices #TODO change to boolean isaccepted avaible for admin only
-    achivment_year= models.IntegerField(null=True)
+    achivment_type = models.CharField(max_length=100)  # TODO: add choices
+    # TODO: add choices #TODO change to boolean isaccepted avaible for admin only
+    achivment_result = models.CharField(max_length=50)
+    achivment_year = models.IntegerField(null=True)
     achivment_issuer = models.CharField(max_length=100)
     achivment_city = models.CharField(max_length=100)
     achivment_country = models.CharField(max_length=100)
 
+
 class Documents_dyploma(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    dyploma_type= models.CharField(max_length=100) # TODO: add choices
-    dyploma_result= models.CharField(max_length=3) # TODO: add choices
-    dyploma_avg= models.DecimalField(decimal_places=3, max_digits=5)
-    dyploma_year= models.IntegerField(null=True)
+    dyploma_type = models.CharField(max_length=100)  # TODO: add choices
+    dyploma_result = models.CharField(max_length=3)  # TODO: add choices
+    dyploma_avg = models.DecimalField(decimal_places=3, max_digits=5)
+    dyploma_year = models.IntegerField(null=True)
     dyploma_issuer = models.CharField(max_length=100)
     dyploma_city = models.CharField(max_length=100)
     dyploma_country = models.CharField(max_length=100)
@@ -239,14 +249,16 @@ class Matura_results(models.Model):
 #     preference5 = models.CharField(max_length=3)
 #     preference6 = models.CharField(max_length=3)
 
+
 class Applications(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
     preference = models.IntegerField(null=True)
-    faculty = models.CharField(max_length=3) # TODO: add choices / automation based on major
+    # TODO: add choices / automation based on major
+    faculty = models.CharField(max_length=3)
     major = models.CharField(max_length=3)
     tour = models.IntegerField(null=True)
     is_active = models.BooleanField(default=True)
-    is_condition = models.BooleanField (default=False)
+    is_condition = models.BooleanField(default=False)
     score = models.IntegerField(null=True)
     is_paid = models.BooleanField(default=False)
     is_qualified = models.BooleanField(null=True)

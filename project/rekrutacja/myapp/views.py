@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout 
+from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import User, Personal_data, AuthUser
+
 
 def index(request):
     return render(request, 'index.html')
 
 # signup page
+
+
 def user_signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -18,6 +21,8 @@ def user_signup(request):
     return render(request, 'signup.html', {'form': form})
 
 # login page
+
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -26,18 +31,22 @@ def user_login(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user:
-                login(request, user)    
+                login(request, user)
                 return redirect('home')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
 # logout page
+
+
 def user_logout(request):
     logout(request)
     return redirect('login')
 
 # dane osobowe
+
+
 def user_dane_osobowe(request):
     if request.method == 'POST':
         form = PersonalDataForm(request.POST)
@@ -49,9 +58,12 @@ def user_dane_osobowe(request):
     return render(request, 'personal_data.html', {'form': form})
 
 # wyksztalcenie
+
+
 def user_wyksztalcenie(request):
-    #TODO: implement user_wyksztalcenie and create html page
+    # TODO: implement user_wyksztalcenie and create html page
     return render(request, 'wyksztalcenie.html')
+
 
 def user_matura(request):
     if request.method == 'POST':
@@ -66,6 +78,7 @@ def user_matura(request):
 
     return render(request, 'matura.html', {'form': form, 'form_results': form_results})
 
+
 def user_osiagniecia(request):
     if request.method == 'POST':
         form = AchivmentDocumentsForm(request.POST)
@@ -75,6 +88,7 @@ def user_osiagniecia(request):
         form = AchivmentDocumentsForm()
 
     return render(request, 'achivments.html', {'form': form})
+
 
 def user_dyplom(request):
     if request.method == 'POST':
@@ -87,6 +101,8 @@ def user_dyplom(request):
     return render(request, 'dyplom.html', {'form': form})
 
 # adres
+
+
 def user_adres(request):
     if request.method == 'POST':
         form = AddressForm(request.POST)
@@ -97,17 +113,21 @@ def user_adres(request):
 
     return render(request, 'adres.html', {'form': form})
 
+
 def user_zgloszenia(request):
-    #TODO implement user_zgloszenia and create html page
+    # TODO implement user_zgloszenia and create html page
     pass
+
 
 def user_ofer(request):
-    #TODO: implement user_ofer and create html page
+    # TODO: implement user_ofer and create html page
     pass
 
+
 def user_settings(request):
-    #TODO: implement user_settings and create html page
+    # TODO: implement user_settings and create html page
     pass
+
 
 def usun_rekordy(request):
     Personal_data.objects.all().delete()
