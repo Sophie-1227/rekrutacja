@@ -264,3 +264,10 @@ class Applications(models.Model):
     is_qualified = models.BooleanField(null=True)
     are_documents = models.BooleanField(default=False)
     decision = models.BooleanField(null=True)
+
+class Subjects(models.Model):
+    major = models.CharField(max_length=100)
+    chemia = models.BooleanField(default=False)
+    informatyka = models.BooleanField(default=False)
+    biologia = models.BooleanField(default=False)
+    geografia = models.BooleanField(default=False)
