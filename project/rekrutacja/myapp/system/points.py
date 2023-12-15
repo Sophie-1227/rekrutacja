@@ -15,7 +15,6 @@ def CountPoints(major, user, score, is_condition):
         M = max(score.matematyka_r*2.5, score.matematyka_p, score.matematyka_p+score.matematyka_r*1.5)
         JO = max(score.angielski_p*0.1, score.angielski_r*0.25)
         JP = 0,1*max(score.polski_p, score.polski_r)
-        #TODO: add podstawowy poziom to calculating PD score :) (max(max(), max())
         PD = max(2.5* max(score.fizyka_r, score.chemia_r*subject.chemia, score.biologia_r*subject.biologia, score.informatyka_r*subject.informatyka, score.geografia_r*subject.geografia),
                  max(score.fizyka_p, score.chemia_p*subject.chemia, score.biologia_p*subject.biologia, score.informatyka_p*subject.informatyka, score.geografia_p*subject.geografia ),
                  max(1.5*score.fizyka_r+score.fizyka_p, 1.5*score.chemia_r+score.chemia_p, 1.5*score.biologia_r+score.biologia_p, 1.5*score.informatyka_r+score.informatyka_p, 1.5*score.geografia_r+score.geografia_p))

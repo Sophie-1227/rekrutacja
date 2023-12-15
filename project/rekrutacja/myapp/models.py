@@ -131,7 +131,7 @@ class Personal_data(models.Model):
         (INNA, "Inna")
     ]
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     pesel = models.PositiveIntegerField(unique=True)
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
@@ -146,7 +146,7 @@ class Personal_data(models.Model):
 
 class Adress(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     country = models.CharField(max_length=100)
     # TODO: create template for anwsering with _ _ - _ _ _
     postal_code = models.CharField(max_length=6)
@@ -158,7 +158,7 @@ class Adress(models.Model):
 
 class High_school(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     LICEUM_O = "Liceum Ogólnokształcące"
     LICEUM_P = "Liceum Profilowane"
     TECHNIKUM = "Technikum"
@@ -177,7 +177,7 @@ class High_school(models.Model):
 
 class Documents_matura(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     IB = "Matura IB"
     Europejska = "Matura Europejska"
     Dwujezyczna = "Polska matura dwujęzyczna"
@@ -205,7 +205,7 @@ class Documents_matura(models.Model):
 
 class Documents_achivment(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     achivment_type = models.CharField(max_length=100)  # TODO: add choices
     # TODO: add choices #TODO change to boolean isaccepted avaible for admin only
     achivment_result = models.CharField(max_length=50)
@@ -217,7 +217,7 @@ class Documents_achivment(models.Model):
 
 class Documents_dyploma(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     dyploma_type = models.CharField(max_length=100)  # TODO: add choices
     dyploma_result = models.CharField(max_length=3)  # TODO: add choices
     dyploma_avg = models.DecimalField(decimal_places=3, max_digits=5)
@@ -229,7 +229,7 @@ class Documents_dyploma(models.Model):
 
 class Matura_results(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     polski_p = models.IntegerField(null=True)
     polski_r = models.IntegerField(null=True)
     matematyka_p = models.IntegerField(null=True)
@@ -259,7 +259,7 @@ class Matura_results(models.Model):
 
 class Applications(models.Model):
   #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    # user = models.CharField(max_length=6)
+    user = models.CharField(max_length=150)
     preference = models.IntegerField(null=True)
     # TODO: add choices / automation based on major
     faculty = models.CharField(max_length=3)
