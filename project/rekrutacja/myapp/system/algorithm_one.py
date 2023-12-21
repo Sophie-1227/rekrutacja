@@ -27,7 +27,6 @@ def qualifyAllPreferences():
             previous_preference = [row[1] for row in qualifiedUsers if row[0] == application.user]
             if application.preference < previous_preference:
                 #NOTE: Bardziej mu zależy na tej preferencji
-                #I tu się dzieje magia i rozpierdol :)
                 if majors_fields[application.major][-1] is 'None':
                     #NOTE: Nie ma miejsc na kierunku
                     #TODO: Co się stanie jak się zwolni miejsce jeśli zwolnimy poprzednio zajmowane miejsce
