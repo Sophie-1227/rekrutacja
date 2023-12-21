@@ -49,5 +49,7 @@ def qualifyFromList(ApplicationList):
         if len(sortedMajorList) > major.limit:
             cutoffScore = sortedMajorList[major.limit][7]
             while sortedMajorList[-1][7] < cutoffScore:
+                oldApplication = sortedMajorList[-1]
+                oldApplication.is_qualified = False
                 sortedMajorList.pop()
 

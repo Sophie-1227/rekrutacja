@@ -1,0 +1,42 @@
+Algo 3
+Najpierw przyjąć wszystkich, posortować, a potem uciąć. Ułatwia to z ilością sprawdzania. 
+Po ucięciu sprawdzamy statusy za pomocą kwerendy, którą już mamy (czy ktoraś preferencja jest przyjęta?) 
+i tak tworzymy kolejne listy dogrywkowe i tak w kółko
+
+Algo 2
+Przyjmujemy po kolei preferencje. Od razu sprawdzamy czy ktoś wchodzi i na bieżąco sortujemy
+
+Algo 3
+Przyjmujemy nie patrząc na preferencje. Liczymy wskaźniki i przyjmujemy wszystkich nie zależnie od preferencji.
+Później patrzymy czy dana osoba już gdzieś nie jest i wtedy ewentualnie patrzymy, która preferencja jest wyższa
+
+
+-> Jaki warunek stopu?
+
+TODO:
+-> Dodać pole User
+-> Opisać problem w pracy
+-> Wykorzystane technologie
+-> Dodać Foreign keys
+-> Warunki stopu
+-> Stworzyć dane testowe
+-> Testy
+-> Wnioski
+-> Pomysły na optymalizacje
+-> Pomysły na rozwój projektu
+-> Dodanie pól wyborów i enum
+-> Dodanie wyłapywania olimpijczyków
+-> Automatyczne tworzenie rekordów w innych tabelach dla każdego nowego użytkownika po założeniu konta
+-> Ekran zgłoszeń rekrutacyjnych
+-> Ekran tworzenia zgłoszenia
+
+Jak się uda:
+-> Generowane username (pwr_ _ _ _ _ _)
+-> Mailowa autoryzacja konta
+-> Czwarty algorytm
+-> Dodanie liczenia innych typów matur
+-> Dodanie możliwości ustalenia minimalnego wskaźnika z góry
+-> Dodanie poziomów dostępu
+-> Ekran logowania i rejestracji na polski
+-> Możliwość wgrania zdj profilowego
+-> Ekrany konta
