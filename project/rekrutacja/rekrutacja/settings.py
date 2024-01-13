@@ -131,4 +131,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rekrutacja.uczelnia.wyzsza@gmail.com'
 EMAIL_HOST_PASSWORD = 'rekrutacja2023'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'rekrutacja.uczelnia.wyzsza@gmail'
+DEFAULT_FROM_EMAIL = 'rekrutacja.uczelnia.wyzsza@gmail.com'

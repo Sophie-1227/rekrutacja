@@ -1,6 +1,10 @@
 #calculating points for each application
 
-from myapp.models import Applications, Majors, Matura_results
+from models import Applications
+# from project.rekrutacja.myapp.forms import MaturaResultsForm
+# from project.rekrutacja.myapp.models import *
+
+
 ApplicationList = Applications.objects.all()
 
 def main():
@@ -9,7 +13,7 @@ def main():
             CountPoints(user_application.major, user_application.user, user_application.score, user_application.is_condition)
 
 def CountPoints(major, user, score, is_condition):
-    score = Matura_results.objects.get(user=user)
+    score = MaturaResultsForm.objects.get(user=user)
     subject = Majors.objects.get(major=major)
     if score.polski_p>=30 and score.angielski_p>=30 and score.matematyka_p>=30:    
         M = max(score.matematyka_r*2.5, score.matematyka_p, score.matematyka_p+score.matematyka_r*1.5)

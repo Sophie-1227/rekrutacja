@@ -1,5 +1,5 @@
 from myapp.models import Applications, Majors, Matura_results
-from points import CountPoints
+# from project.rekrutacja.myapp.points import CountPoints
 import numpy as np
 
 #TODO: add option that there is a draw in score and we will extend a list
@@ -33,6 +33,7 @@ def qualifyHighestPreferences():
             #TODO: Add choosable field why isnt qualified
     ApplicationList.delete()
     #TODO: Add STOP rule
+    #NOTE: Stop rule: for each user there must be an application with status true or none with status NONE (all are false)
     for user in Applications.objects.values('user').distinct():
         if Applications.objects.filter(user=user, is_qualified=True).exists():
             userTopApplication = Applications.objects.filter(user=user, is_qualified__isnull=True).order_by("preference").first()

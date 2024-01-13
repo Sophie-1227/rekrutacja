@@ -1,5 +1,5 @@
 from myapp.models import Applications, Majors, Matura_results
-from points import CountPoints
+# from project.rekrutacja.myapp.points import CountPoints
 import numpy as np
 
 #TODO: add option that there is a draw in score and we will extend a list

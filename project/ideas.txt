@@ -6,12 +6,18 @@ i tak tworzymy kolejne listy dogrywkowe i tak w kółko
 Algo 2
 Przyjmujemy po kolei preferencje. Od razu sprawdzamy czy ktoś wchodzi i na bieżąco sortujemy
 
-Algo 3
+Algo 1
 Przyjmujemy nie patrząc na preferencje. Liczymy wskaźniki i przyjmujemy wszystkich nie zależnie od preferencji.
 Później patrzymy czy dana osoba już gdzieś nie jest i wtedy ewentualnie patrzymy, która preferencja jest wyższa
 
+Algo 4
+Połączenie algo 1 i 3. Najpierw przyjmujemy wszystkich z pierwszej preferencji, a następnie w dogrywce przyjmujemy
+od 0 (czyścimy listy przyjętych), zamieniające te zgłoszenia, które miały za mało punktow na te z niższymi preferencjami
+danego kandydata.
+
 
 -> Jaki warunek stopu?
+Albo wszystkie statusy kwalifikacji dla danego usera są false albo jedna jest true
 
 TODO:
 -> Dodać pole User
@@ -29,6 +35,8 @@ TODO:
 -> Automatyczne tworzenie rekordów w innych tabelach dla każdego nowego użytkownika po założeniu konta
 -> Ekran zgłoszeń rekrutacyjnych
 -> Ekran tworzenia zgłoszenia
+-> Dopisać Algo 4
+-> Dokumentacja projektu
 
 Jak się uda:
 -> Generowane username (pwr_ _ _ _ _ _)
