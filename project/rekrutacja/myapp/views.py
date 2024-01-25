@@ -3,7 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import Personal_data, AuthUser, Matura_results, Applications
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_protect
+# from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.forms import UserCreationForm
+# from django.db.models.signals import post_save
+# from django.contrib.auth.models import User
+# from .signals import create_user_profile_and_preferences
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,15 +20,18 @@ def index(request):
 
 
 def user_signup(request):
-    print("Dobra działaj")
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+
+# post_save.connect(create_user_profile_and_preferences, sender=User)
+
 
 # login page
 

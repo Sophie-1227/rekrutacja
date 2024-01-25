@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',
-    # 'myapp.apps.MyappConfig',
+    # 'myapp',
+    'myapp.apps.MyappConfig',
 ]
 
 # AUTH_USER_MODEL = 'myapp.AuthUser'
