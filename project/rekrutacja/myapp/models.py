@@ -134,27 +134,28 @@ class Personal_data(models.Model):
     ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    pesel = models.PositiveIntegerField(unique=True)
-    first_name = models.CharField(max_length=100)
-    second_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    phone = models.PositiveIntegerField()  # TODO add country code and template
-    father_name = models.CharField(max_length=100)
+    pesel = models.PositiveIntegerField(unique=True, null=True)
+    first_name = models.CharField(max_length=100, null=True)
+    second_name = models.CharField(max_length=100, null=True)
+    last_name = models.CharField(max_length=100, null=True)
+    email = models.EmailField(max_length=100, null=True)
+    # TODO add country code and template
+    phone = models.PositiveIntegerField(null=True)
+    father_name = models.CharField(max_length=100, null=True)
     is_polish = models.CharField(max_length=3, choices=tak_nie, default=TAK)
-    sex = models.CharField(max_length=9, choices=sex_choices)
+    sex = models.CharField(max_length=9, choices=sex_choices, null=True)
 
 
 class Adress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    country = models.CharField(max_length=100)
+    country = models.CharField(max_length=100, null=True)
     # TODO: create template for anwsering with _ _ - _ _ _
-    postal_code = models.CharField(max_length=6)
-    city = models.CharField(max_length=100)
-    street = models.CharField(max_length=100)
-    building_number = models.CharField(max_length=10)
-    apartment_number = models.CharField(max_length=4)
+    postal_code = models.CharField(max_length=6, null=True)
+    city = models.CharField(max_length=100, null=True)
+    street = models.CharField(max_length=100, null=True)
+    building_number = models.CharField(max_length=10, null=True)
+    apartment_number = models.CharField(max_length=4, null=True)
 
 
 class High_school(models.Model):
@@ -220,7 +221,8 @@ class Documents_dyploma(models.Model):
                              on_delete=models.CASCADE)
     dyploma_type = models.CharField(max_length=100)  # TODO: add choices
     dyploma_result = models.CharField(max_length=3)  # TODO: add choices
-    dyploma_avg = models.DecimalField(decimal_places=3, max_digits=5)
+    dyploma_avg = models.DecimalField(
+        decimal_places=3, max_digits=5, null=True)
     dyploma_year = models.IntegerField(null=True)
     dyploma_issuer = models.CharField(max_length=100)
     dyploma_city = models.CharField(max_length=100)
