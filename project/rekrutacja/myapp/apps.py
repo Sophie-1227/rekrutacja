@@ -5,5 +5,5 @@ class MyappConfig(AppConfig):
     name = 'myapp'
 
     def ready(self):
-        print("MyappConfig ready method called")
+        # print("MyappConfig ready method called")
         import myapp.signals
