@@ -1,7 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
-from .models import User, Personal_data, AuthUser
+from .models import Personal_data, AuthUser, Matura_results, Applications
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -11,6 +16,7 @@ def index(request):
 
 
 def user_signup(request):
+    print("Dobra działaj")
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -127,9 +133,3 @@ def user_ofer(request):
 def user_settings(request):
     # TODO: implement user_settings and create html page
     pass
-
-
-def usun_rekordy(request):
-    Personal_data.objects.all().delete()
-    AuthUser.objects.all().delete()
-    return render(request, 'usun_rekordy.html')

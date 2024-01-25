@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    # 'myapp.apps.MyappConfig',
 ]
+
+# AUTH_USER_MODEL = 'myapp.AuthUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

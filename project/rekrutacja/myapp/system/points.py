@@ -1,28 +1,89 @@
-#calculating points for each application
+# calculating points for each application
 
-from models import Applications
-# from project.rekrutacja.myapp.forms import MaturaResultsForm
-# from project.rekrutacja.myapp.models import *
+from django.shortcuts import render
+from django.http import JsonResponse
+from myapp.models import Applications, Matura_results, Majors
 
 
-ApplicationList = Applications.objects.all()
+def calculate_score(request):
+    major = request.GET.get('major')
+    user = request.GET.get('user')
+    score = float(request.GET.get('score'))
+    is_condition = False
 
-def main():
-    for user_application in ApplicationList:
-        if user_application.major != "LEK" or "ARCH":
-            CountPoints(user_application.major, user_application.user, user_application.score, user_application.is_condition)
+    applications = Applications.objects.filter(user=user)
+    wyniki_matury = Matura_results.objects.filter(application__in=applications)
 
-def CountPoints(major, user, score, is_condition):
-    score = MaturaResultsForm.objects.get(user=user)
-    subject = Majors.objects.get(major=major)
-    if score.polski_p>=30 and score.angielski_p>=30 and score.matematyka_p>=30:    
-        M = max(score.matematyka_r*2.5, score.matematyka_p, score.matematyka_p+score.matematyka_r*1.5)
-        JO = max(score.angielski_p*0.1, score.angielski_r*0.25)
-        JP = 0,1*max(score.polski_p, score.polski_r)
-        PD = max(2.5* max(score.fizyka_r, score.chemia_r*subject.chemia, score.biologia_r*subject.biologia, score.informatyka_r*subject.informatyka, score.geografia_r*subject.geografia),
-                 max(score.fizyka_p, score.chemia_p*subject.chemia, score.biologia_p*subject.biologia, score.informatyka_p*subject.informatyka, score.geografia_p*subject.geografia ),
-                 max(1.5*score.fizyka_r+score.fizyka_p, 1.5*score.chemia_r+score.chemia_p, 1.5*score.biologia_r+score.biologia_p, 1.5*score.informatyka_r+score.informatyka_p, 1.5*score.geografia_r+score.geografia_p))
+    for application in applications:
+        for wynik_matury in wyniki_matury:
+            # Implementacja algorytmu dla matury IB
+            if application.exam_type == 'maturaIB':
+                inputValue = wynik_matury.input_value
+                table_value = 0
+                if inputValue == 7 or inputValue == 6:
+                    table_value = 100
+                elif inputValue == 5:
+                    table_value = 85
+                elif inputValue == 4:
+                    table_value = 70
+                elif inputValue == 3:
+                    table_value = 55
+                elif inputValue == 2:
+                    table_value = 40
+                elif inputValue == 1:
+                    table_value = 0
+                wynik_matury.table_value = table_value
+                wynik_matury.save()
+
+    # Implementacja algorytmu dla nowaMatura
+    polski_p = float(request.GET.get('polski_p'))
+    angielski_p = float(request.GET.get('angielski_p'))
+    matematyka_p = float(request.GET.get('matematyka_p'))
+
+    if polski_p >= 30 and angielski_p >= 30 and matematyka_p >= 30:
+        exam_type = request.GET.get('exam_type')
+        if exam_type == 'nowaMatura':
+            fizyka = float(request.GET.get('fizyka'))
+            chemia = float(request.GET.get('chemia'))
+            biologia = float(request.GET.get('biologia'))
+            informatyka = float(request.GET.get('informatyka'))
+            geografia = float(request.GET.get('geografia'))
+            PD = 2.5 * max(fizyka, chemia, biologia, informatyka, geografia)
+        else:
+            fizyka_r = float(request.GET.get('fizyka_r'))
+            chemia_r = float(request.GET.get('chemia_r'))
+            biologia_r = float(request.GET.get('biologia_r'))
+            informatyka_r = float(request.GET.get('informatyka_r'))
+            geografia_r = float(request.GET.get('geografia_r'))
+
+            fizyka_p = float(request.GET.get('fizyka_p'))
+            chemia_p = float(request.GET.get('chemia_p'))
+            biologia_p = float(request.GET.get('biologia_p'))
+            informatyka_p = float(request.GET.get('informatyka_p'))
+            geografia_p = float(request.GET.get('geografia_p'))
+
+            PD = max(
+                2.5 * max(fizyka_r, chemia_r, biologia_r,
+                          informatyka_r, geografia_r),
+                max(fizyka_p, chemia_p, biologia_p, informatyka_p, geografia_p),
+                max(fizyka_p + fizyka_r * 1.5, chemia_p + chemia_r * 1.5,
+                    biologia_p + biologia_r * 1.5, informatyka_p + informatyka_r * 1.5,
+                    geografia_p + geografia_r * 1.5)
+            )
+
+        matematyka_r = float(request.GET.get('matematyka_r'))
+        M = max(matematyka_r * 2.5, matematyka_p,
+                matematyka_p + matematyka_r * 1.5)
+        JO = max(angielski_p * 0.1, float(request.GET.get('angielski_r')) * 0.25)
+        JP = 0.1 * max(polski_p, float(request.GET.get('polski_r')))
         is_condition = True
-        score = sum(M, JO, JP, PD)
+        score = M + JO + JP + PD
     else:
         is_condition = False
+
+    # Wynik w formie JSON
+    result = {
+        'score': score,
+        'is_condition': is_condition,
+    }
+    return JsonResponse(result)

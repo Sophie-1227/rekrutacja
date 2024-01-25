@@ -1,7 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils import timezone
+from django.conf import settings
 
 # Create your models here.
+
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -50,7 +53,7 @@ class AuthUser(models.Model):
 
 
 class AuthUserGroups(models.Model):
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
     class Meta:
@@ -74,8 +77,7 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey(
-        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     action_time = models.DateTimeField()
 
@@ -112,9 +114,8 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
 class Personal_data(models.Model):
+    print("Excuse me wtf")
     TAK = "Tak"
     NIE = "Nie"
     tak_nie = [
@@ -129,23 +130,22 @@ class Personal_data(models.Model):
         (MEZCZYZNA, "Mężczyzna"),
         (INNA, "Inna")
     ]
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     pesel = models.PositiveIntegerField(unique=True)
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.PositiveIntegerField()  # TODO add country code and template
-    # date_of_birth = models.DateField()
     father_name = models.CharField(max_length=100)
     is_polish = models.CharField(max_length=3, choices=tak_nie, default=TAK)
     sex = models.CharField(max_length=9, choices=sex_choices)
 
 
 class Adress(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     country = models.CharField(max_length=100)
     # TODO: create template for anwsering with _ _ - _ _ _
     postal_code = models.CharField(max_length=6)
@@ -156,8 +156,8 @@ class Adress(models.Model):
 
 
 class High_school(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     LICEUM_O = "Liceum Ogólnokształcące"
     LICEUM_P = "Liceum Profilowane"
     TECHNIKUM = "Technikum"
@@ -175,8 +175,8 @@ class High_school(models.Model):
 
 
 class Documents_matura(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     IB = "Matura IB"
     Europejska = "Matura Europejska"
     Dwujezyczna = "Polska matura dwujęzyczna"
@@ -197,14 +197,13 @@ class Documents_matura(models.Model):
     exam_year = models.IntegerField(null=True)
     exam_number = models.CharField(max_length=13)
     exam_issuer = models.CharField(max_length=100)
-    # exam_date = models.DateField
     exam_city = models.CharField(max_length=100)
     exam_country = models.CharField(max_length=100)
 
 
 class Documents_achivment(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     achivment_type = models.CharField(max_length=100)  # TODO: add choices
     # TODO: add choices #TODO change to boolean isaccepted avaible for admin only
     achivment_result = models.CharField(max_length=50)
@@ -215,8 +214,8 @@ class Documents_achivment(models.Model):
 
 
 class Documents_dyploma(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     dyploma_type = models.CharField(max_length=100)  # TODO: add choices
     dyploma_result = models.CharField(max_length=3)  # TODO: add choices
     dyploma_avg = models.DecimalField(decimal_places=3, max_digits=5)
@@ -227,8 +226,8 @@ class Documents_dyploma(models.Model):
 
 
 class Matura_results(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     polski_p = models.IntegerField(null=True)
     polski_r = models.IntegerField(null=True)
     matematyka_p = models.IntegerField(null=True)
@@ -246,19 +245,10 @@ class Matura_results(models.Model):
     informatyka_p = models.IntegerField(null=True)
     informatyka_r = models.IntegerField(null=True)
 
-# class Preferences(models.Model): #redundancja -> widok?
-#     ID = models.ForeignKey(auth.user, related_name=id, unique=True, notnull=True)
-#     preference1 = models.CharField(max_length=3)
-#     preference2 = models.CharField(max_length=3)
-#     preference3 = models.CharField(max_length=3)
-#     preference4 = models.CharField(max_length=3)
-#     preference5 = models.CharField(max_length=3)
-#     preference6 = models.CharField(max_length=3)
-
 
 class Applications(models.Model):
-  #  ID = models.ForeignKey(User, related_name=id, on_delete=models.CASCADE)
-    user = models.CharField(max_length=150)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     preference = models.IntegerField(null=True)
     # TODO: add choices / automation based on major
     faculty = models.CharField(max_length=3)
@@ -272,6 +262,7 @@ class Applications(models.Model):
     are_documents = models.BooleanField(default=False)
     decision = models.BooleanField(null=True)
 
+
 class Majors(models.Model):
     major = models.CharField(max_length=100)
     chemia = models.BooleanField(default=False)
@@ -279,4 +270,3 @@ class Majors(models.Model):
     biologia = models.BooleanField(default=False)
     geografia = models.BooleanField(default=False)
     limit = models.IntegerField(null=True)
-    
