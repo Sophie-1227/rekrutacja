@@ -3,11 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import Personal_data, AuthUser, Matura_results, Applications
 from django.http import JsonResponse
-# from django.views.decorators.csrf import csrf_protect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .utils import calculate_score
 from django.contrib.auth.forms import UserCreationForm
-# from django.db.models.signals import post_save
-# from django.contrib.auth.models import User
-# from .signals import create_user_profile_and_preferences
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -140,3 +140,16 @@ def user_ofer(request):
 def user_settings(request):
     # TODO: implement user_settings and create html page
     pass
+
+
+@csrf_exempt  # Ignoruj ochronę przed atakami CSRF dla tego przykładu - używaj ostrożnie!
+def calculate_view(request):
+    if request.method == 'POST':
+        value1 = int(request.POST.get('value1', 0))
+        value2 = int(request.POST.get('value2', 0))
+
+        result = calculate_score(value1, value2)
+
+        return JsonResponse({'result': result})
+
+    return JsonResponse({'error': 'Invalid request method'})

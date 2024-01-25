@@ -15,4 +15,5 @@ urlpatterns = [
     path('zgloszenia/', views.user_zgloszenia, name='zgloszenia'),
     path('ofer/', views.user_ofer, name='ofer'),
     path('settings/', views.user_settings, name='settings'),
+    path('calculate/', views.calculate_view, name='calculate_view'),
 ]
