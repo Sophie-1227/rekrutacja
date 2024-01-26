@@ -129,7 +129,7 @@ def user_adres(request):
 
 
 def user_zgloszenia(request):
-    # TODO implement user_zgloszenia and create html page
+    # TODO: implement user_zgloszenia and create html page
     pass
 
 

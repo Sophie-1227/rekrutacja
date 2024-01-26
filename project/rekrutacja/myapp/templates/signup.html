@@ -13,7 +13,7 @@
         <form method="POST" class="login-form">
           {% csrf_token %}
           <p>
-            <label for="id_username">Username:</label>
+            <label for="id_username">Nazwa użytkownika:</label>
             <input
               type="text"
               name="username"
@@ -27,7 +27,7 @@
           </p>
 
           <p>
-            <label for="id_password1">Password:</label>
+            <label for="id_password1">Hasło:</label>
             <input
               type="password"
               name="password1"
@@ -38,7 +38,7 @@
           </p>
 
           <p>
-            <label for="id_password2">Password confirmation:</label>
+            <label for="id_password2">Potwierdź hasło:</label>
             <input
               type="password"
               name="password2"
@@ -50,6 +50,10 @@
           <button class="button" type="submit">Utwórz konto</button><br /><br />
           <a href="/login/">Masz już konto?</a>
         </form>
+        <h6>Hasło nie może być zbyt podobne do innych danych osobowych.<br />
+          Hasło musi zawierać co najmniej 8 znaków  .<br />
+          Hasło nie może być powszechnie używanym hasłem.<br />
+          Hasło nie może składać się wyłącznie z cyfr.</h6>
       </div>
     </div>
   </body>
