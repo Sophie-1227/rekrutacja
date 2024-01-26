@@ -5,7 +5,8 @@ from .models import Personal_data, AuthUser, Matura_results, Applications
 from django.http import JsonResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils import calculate_score
+from .utils import *
+from .generate_test_data import *
 from django.contrib.auth.forms import UserCreationForm
 
 import logging
@@ -142,14 +143,19 @@ def user_settings(request):
     pass
 
 
-@csrf_exempt  # Ignoruj ochronę przed atakami CSRF dla tego przykładu - używaj ostrożnie!
-def calculate_view(request):
-    if request.method == 'POST':
-        value1 = int(request.POST.get('value1', 0))
-        value2 = int(request.POST.get('value2', 0))
+@csrf_exempt
+def admin_view(request):
+    create_users()
+    create_scores()
+    return JsonResponse({'error': 'Data base updated'})
 
-        result = calculate_score(value1, value2)
 
-        return JsonResponse({'result': result})
+@csrf_exempt
+def qualify_sort_view(request):
+    qualify_sort(request=request)
+    return JsonResponse({'success': 'Lists have been rendered'})
 
-    return JsonResponse({'error': 'Invalid request method'})
+
+def qualify_stack_view(request):
+    qualify_stacks(request=request)
+    return JsonResponse({'success': 'Lists have been rendered'})

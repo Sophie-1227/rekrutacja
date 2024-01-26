@@ -109,19 +109,19 @@ def sortApplications(applications):
     return sortApplications(less, 1) + equal + sortApplications(greater, 1)
 
 
-def ilosc_linii_w_pliku(nazwa_pliku):
-    with open(nazwa_pliku, 'r') as plik:
+def ilosc_linii_w_pliku(file_name):
+    with open(file_name, 'r') as plik:
         ilosc_linii = sum(1 for linia in plik)
     return ilosc_linii
 
 
-def zapisz_do_pliku(nazwa_pliku, tekst):
-    with open(nazwa_pliku, 'a') as plik:
+def zapisz_do_pliku(file_name, tekst):
+    with open(file_name, 'a') as plik:
         plik.write(tekst + '\n')
 
 
-def wyczysc_plik(nazwa_pliku):
-    with open(nazwa_pliku, 'w') as plik:
+def wyczysc_plik(file_name):
+    with open(file_name, 'w') as plik:
         pass
 
 
@@ -134,17 +134,16 @@ def qualify_stacks(request):
     stop_condition = user_qualified(qualified, users, applications)
 
     for kierunek in limits.major:
-        nazwa_pliku = f'{kierunek}.txt'
+        file_name = f'{kierunek}.txt'
 
     while stop_condition:
         for kierunek in limits.major:
             wyczysc_plik(f'{kierunek}.txt')
         for user in users:
-            user_applications = applications.user.lications.user
+            user_applications = applications.user
             compiting_applications.append(
                 sorted(applications, key=lambda x: x.preference)[0])
-
-    sorted_applications = sortApplications(compiting_applications)
+        stop_condition = user_qualified(qualified, users, applications)
 
     for application in sorted_applications:
         miejsca = ilosc_linii_w_pliku(f'{application.major}.txt')
@@ -152,6 +151,7 @@ def qualify_stacks(request):
         if miejsca < limits.app_major:
             zapisz_do_pliku(f'{application.major}.txt', application.user)
         compiting_applications.remove(application)
+    sorted_applications = sortApplications(compiting_applications)
 
 
 def find_row(table, val_to_find):
@@ -161,8 +161,28 @@ def find_row(table, val_to_find):
             return row
 
 
+def find_preference(table, val_to_find):
+    found_row = None
+    for row in table:
+        if row[1] == val_to_find:
+            return row
+
+
+def file_to_list(file_name):
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+    lines = [line.strip() for line in lines]
+    return lines
+
+
+def write_list_to_file(file_name, list):
+    with open(file_name, 'w') as file:
+        for row in list:
+            file.write('\t'.join(map(str, row)) + '\n')
+
+
 def qualify_sort(request):
-    applications = Applications.objects.all().order_by('preference', 'score')
+    applications = Applications.objects.all().order_by('preference')
     limits = Majors.objects.values('major', 'limit', flat=True)
     for row in limits:
         row.append(None)
@@ -170,9 +190,12 @@ def qualify_sort(request):
     compiting_applications = []
 
     for kierunek in limits.major:
-        nazwa_pliku = f'{kierunek}_sort.txt'
+        file_name = f'{kierunek}_sort.txt'
 
-    for application in applications:
+    i = 0
+    while i < len(applications):
+        # for application in applications:
+        application = applications[i]
         if application.user not in qualified:
             app_major = application.major
             current_threshold = find_row(limits, app_major)
@@ -180,6 +203,13 @@ def qualify_sort(request):
                 miejsca = ilosc_linii_w_pliku(f'{application.major}_sort.txt')
                 if miejsca < limits.app_major:
                     zapisz_do_pliku(
-                        f'{application.major}_sort.txt', application.user)
+                        f'{application.major}_sort.txt', application)
                 else:
-                    pass
+                    lista = file_to_list(f'{application.major}_sort.txt')
+                    lista.append(application)
+                    sortedLista = sortApplications(lista)
+                    disqualified = sortedLista[-1]
+                    sortedLista.pop(-1)
+                    preference = disqualified[1] - 1
+                    loop_preference = find_preference(applications, preference)
+                    i = loop_preference
