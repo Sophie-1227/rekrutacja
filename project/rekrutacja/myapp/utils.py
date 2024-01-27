@@ -1,9 +1,10 @@
-from django.http import JsonResponse
 from myapp.models import Applications, Matura_results, Majors, Documents_matura, AuthUser
-from django.shortcuts import get_object_or_404
-from django.db.models import Max
+from django.core.serializers import serialize
 import pandas as pd
+import os
+import json
 
+sciezka_do_pliku = 'project\rekrutacja'
 
 # calculating points for each application
 
@@ -59,9 +60,6 @@ def calculate_score(request):
                 elif wynik == 1:
                     table_value = 0
                 Matura_results.filter(user=user).update(wynik=table_value)
-
-        # Print the queryset
-        print(wyniki_matury_list)
 
         polski_p = wyniki_matury_list[0]['polski_p']
         angielski_p = wyniki_matury_list[0]['angielski_p']
@@ -144,8 +142,7 @@ def sortApplications(applications):
     if len(applications) <= 1:
         return applications
     pivot = applications[len(applications) // 2]
-    print(pivot)
-    pivot_score = pivot.score
+    pivot_score = pivot.score or 0
     left = [x for x in applications if x.score < pivot_score]
     middle = [x for x in applications if x.score == pivot_score]
     right = [x for x in applications if x.score > pivot_score]
@@ -172,7 +169,6 @@ def qualify_stacks(request):
     applications = Applications.objects.all()
     limits_query = Majors.objects.values('major', 'limit')
     limits = pd.DataFrame.from_records(limits_query)
-    print(limits)
     users = AuthUser.objects.values_list('username', flat=True).distinct()
     user_ids = AuthUser.objects.values_list('id', flat=True).distinct()
     qualified = []
@@ -200,7 +196,7 @@ def qualify_stacks(request):
             miejsca = ilosc_linii_w_pliku(f'{application.major}.txt')
             app_major = application.major
             limit = (limits[limits['major'] == app_major].values[0])[1]
-            if miejsca < limit:
+            if miejsca < limit and application.score > 0:
                 zapisz_do_pliku(f'{application.major}.txt', application.user)
             compiting_applications.remove(application)
         stop_condition = user_qualified(qualified, users, applications)
@@ -220,11 +216,27 @@ def find_preference(table, val_to_find):
             return row
 
 
+def write_object_to_file(filename, application):
+    with open(filename, 'a') as file:
+        application_json = serialize('json', [application])
+        file.write(application_json + '\n')
+
+
+def create_file(filename):
+    with open(filename, 'w') as file:
+        pass
+
+
 def file_to_list(file_name):
-    with open(file_name, 'r') as file:
-        lines = file.readlines()
-    lines = [line.strip() for line in lines]
-    return lines
+    objects = []
+    try:
+        with open(file_name, 'r') as file:
+            zawartosc_pliku = file.read()
+            odczytany_obiekt = json.loads(zawartosc_pliku)
+            objects.append(odczytany_obiekt)
+    except json.JSONDecodeError as e:
+        return objects
+    return objects
 
 
 def write_list_to_file(file_name, list):
@@ -235,33 +247,60 @@ def write_list_to_file(file_name, list):
 
 def qualify_sort(request):
     applications = Applications.objects.all().order_by('preference')
-    limits = Majors.objects.values('major', 'limit', flat=True)
-    for row in limits:
-        row.append(None)
+    limits_query = Majors.objects.values('major', 'limit')
+    limit = pd.DataFrame.from_records(limits_query)
+    limits = pd.DataFrame(limit)
+    limits['current_threshold'] = 0
+
     qualified = []
     compiting_applications = []
 
     for kierunek in limits.major:
         file_name = f'{kierunek}_sort.txt'
+        create_file(file_name)
 
-    i = 0
+    i = 1
     while i < len(applications):
-        # for application in applications:
         application = applications[i]
-        if application.user not in qualified:
+        if application.user_id not in qualified:
             app_major = application.major
-            current_threshold = find_row(limits, app_major)
-            if application.score > current_threshold:
-                miejsca = ilosc_linii_w_pliku(f'{application.major}_sort.txt')
-                if miejsca < limits.app_major:
-                    zapisz_do_pliku(
-                        f'{application.major}_sort.txt', application)
+            threshold = (limits[limits['major'] == app_major].values[0])[2]
+            if application.score > threshold:
+                if os.path.exists(f'{app_major}_sort.txt'):
+                    miejsca = (limits[limits['major'] ==
+                               app_major].values[0])[1] - ilosc_linii_w_pliku(
+                        f'{application.major}_sort.txt')
                 else:
-                    lista = file_to_list(f'{application.major}_sort.txt')
+                    miejsca = (limits[limits['major'] ==
+                               app_major].values[0])[1]
+                limit_major = (
+                    limits[limits['major'] == app_major].values[0])[1]
+                if miejsca > 0:
+                    write_object_to_file(
+                        f'{application.major}_sort.txt', application)
+                    qualified.append(application.user_id)
+                else:
+                    try:
+                        lista = file_to_list(f'{application.major}_sort.txt')
+                    except FileNotFoundError:
+                        lista = []
                     lista.append(application)
                     sortedLista = sortApplications(lista)
                     disqualified = sortedLista[-1]
                     sortedLista.pop(-1)
-                    preference = disqualified[1] - 1
-                    loop_preference = find_preference(applications, preference)
-                    i = loop_preference
+                    for object in sortedLista:
+                        write_object_to_file(
+                            f'{application.major}_sort.txt', object)
+                    if sortedLista != []:
+                        threshold_person = sortedLista[-1]
+                        limits.loc[limits['major'] == app_major,
+                                   'current_threshold'] = threshold_person['score']
+
+                        if disqualified[1] == 1:
+                            preference = 1
+                        else:
+                            preference = disqualified[1] - 1
+                        loop_preference = find_preference(
+                            applications, preference)
+                        i = loop_preference
+            i += 1
