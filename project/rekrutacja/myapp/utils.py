@@ -11,6 +11,7 @@ def calculate_score(request):
     applications = Applications.objects.all()
 
     for application in applications:
+        score = 0
         user = application.user
         major = application.major
         PD_major = Majors.objects.filter(major=major).first()
@@ -118,14 +119,16 @@ def calculate_score(request):
             JP = 0.1 * max(polski_p, polski_r)
             is_condition = True
             score = M + JO + JP + PD
+            Applications.objects.filter(user_id=user).update(
+                score=score, is_condition=is_condition)
+            print(score, "poza petlą")
         else:
             is_condition = False
-
-        Applications.objects.filter(user_id=user).update(
-            score=score),
+            Applications.objects.filter(user_id=user).update(
+                is_condition=is_condition)
 
         print(score, "score")
-        score = 0
+        # score = 0
 
 
 def user_qualified(qualified_list, users, applications):

@@ -144,6 +144,8 @@ def user_ofer(request):
 
 @csrf_exempt
 def admin_view(request):
+    create_users()
+    create_scores()
     generate_applications()
     return JsonResponse({'error': 'Data base updated'})
 
