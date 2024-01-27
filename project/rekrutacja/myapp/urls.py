@@ -15,11 +15,12 @@ urlpatterns = [
     path('adres/', views.user_adres, name='adres'),
     path('zgloszenia/', views.user_zgloszenia, name='zgloszenia'),
     path('ofer/', views.user_ofer, name='ofer'),
-    path('settings/', views.user_settings, name='settings'),
+    # path('settings/', views.user_settings, name='settings'),
     path('admin_view/', views.admin_view, name='admin_view'),
     path('qualify_stack/', views.qualify_stack_view, name='qualify_stack'),
     path('qualify_sort/', views.qualify_sort_view, name='qualify_sort'),
     path('change-password/', PasswordChangeView.as_view(), name='password_change'),
     path('change-password/done/', PasswordChangeDoneView.as_view(),
-         name='password_change_done')
+         name='password_change_done'),
+    path('calculate_score/', views.calculate, name='score_calculate')
 ]

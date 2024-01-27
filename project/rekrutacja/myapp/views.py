@@ -134,13 +134,12 @@ def user_zgloszenia(request):
 
 
 def user_ofer(request):
-    # TODO: implement user_ofer and create html page
-    pass
+    return render(request, 'offer.html')
 
 
-def user_settings(request):
-    # TODO: implement user_settings and create html page
-    pass
+# def user_settings(request):
+#     # TODO: implement user_settings and create html page
+#     pass
 
 
 @csrf_exempt
@@ -148,6 +147,12 @@ def admin_view(request):
     create_users()
     create_scores()
     return JsonResponse({'error': 'Data base updated'})
+
+
+@csrf_exempt
+def calculate(request):
+    calculate_score(request=request)
+    return JsonResponse({'sucess': 'Score calculation completed'})
 
 
 @csrf_exempt

@@ -1,6 +1,8 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from myapp.models import Applications, Matura_results, Majors, Documents_matura, AuthUser
+from django.shortcuts import get_object_or_404
+from django.db.models import Max
+
 
 # calculating points for each application
 
@@ -11,13 +13,36 @@ def calculate_score(request):
     for application in applications:
         user = application.user
         major = application.major
-        PD_major = Majors.objects.filter(major=major)
-        exam_type = Documents_matura.objects.filter(user=user)
+        PD_major = Majors.objects.filter(major=major).first()
+        exam_type = Documents_matura.objects.filter(
+            user=user).values('exam_type')
         wyniki_matury = Matura_results.objects.filter(user=user)
+        wyniki_matury_list = []
+        for result in wyniki_matury:
+            result_data = {
+                'polski_p': result.polski_p or 0,
+                'polski_r': result.polski_r or 0,
+                'matematyka_p': result.matematyka_p or 0,
+                'matematyka_r': result.matematyka_r or 0,
+                'angielski_p': result.angielski_p or 0,
+                'angielski_r': result.angielski_r or 0,
+                'fizyka_p': result.fizyka_p or 0,
+                'fizyka_r': result.fizyka_r or 0,
+                'chemia_p': result.chemia_p or 0,
+                'chemia_r': result.chemia_r or 0,
+                'geografia_p': result.geografia_p or 0,
+                'geografia_r': result.geografia_r or 0,
+                'biologia_p': result.biologia_p or 0,
+                'biologia_r': result.biologia_r or 0,
+                'informatyka_p': result.informatyka_p or 0,
+                'informatyka_r': result.informatyka_r or 0,
+            }
+            wyniki_matury_list.append(result_data)
         is_condition = False
+        PD = 0
         if exam_type == 'maturaIB':
             # Implementacja algorytmu dla matury IB
-            for wynik in wyniki_matury:
+            for wynik in wyniki_matury_list:
                 table_value = 0
                 if wynik == 7 or wynik == 6:
                     table_value = 100
@@ -33,66 +58,88 @@ def calculate_score(request):
                     table_value = 0
                 Matura_results.filter(user=user).update(wynik=table_value)
 
-    polski_p = wyniki_matury.polski_p
-    angielski_p = wyniki_matury.angielski_p
-    matematyka_p = wyniki_matury.matematyka_p
-    polski_r = wyniki_matury.polski_r
-    angielski_r = wyniki_matury.angielski_r
-    matematyka_r = wyniki_matury.matematyka_r
+        # Print the queryset
+        print(wyniki_matury_list)
 
-    if polski_p >= 30 and angielski_p >= 30 and matematyka_p >= 30:
-        if exam_type == 'nowaMatura':
-            fizyka = wyniki_matury.fizyka_r * PD_major.fizyka
-            chemia = wyniki_matury.chemia_r * PD_major.chemia
-            biologia = wyniki_matury.biologia_r * PD_major.biologia
-            informatyka = wyniki_matury.informatyka_r * PD_major.informatyka
-            geografia = wyniki_matury.geografia_r * PD_major.geografia
-            PD = 2.5 * max(fizyka, chemia, biologia, informatyka, geografia)
+        polski_p = wyniki_matury_list[0]['polski_p']
+        angielski_p = wyniki_matury_list[0]['angielski_p']
+        matematyka_p = wyniki_matury_list[0]['matematyka_p']
+        polski_r = wyniki_matury_list[0]['polski_r']
+        angielski_r = wyniki_matury_list[0]['angielski_r']
+        matematyka_r = wyniki_matury_list[0]['matematyka_r']
+
+        if polski_p >= 30 and angielski_p >= 30 and matematyka_p >= 30:
+            if exam_type == 'nowaMatura':
+                fizyka = wyniki_matury_list[0]['fizyka_r']
+                chemia = wyniki_matury_list[0]['chemia_r'] * \
+                    int(PD_major.chemia)
+                biologia = wyniki_matury_list[0]['biologia_r'] * \
+                    int(PD_major.biologia)
+                informatyka = wyniki_matury_list[0]['informatyka_r'] * \
+                    int(PD_major.informatyka)
+                geografia = wyniki_matury_list[0]['geografia_r'] * \
+                    int(PD_major.geografia)
+                PD = 2.5 * max(fizyka, chemia, biologia,
+                               informatyka, geografia)
+            else:
+                fizyka_r = wyniki_matury_list[0]['fizyka_r']
+                chemia_r = wyniki_matury_list[0]['chemia_r'] * \
+                    int(PD_major.chemia)
+                biologia_r = wyniki_matury_list[0]['biologia_r'] * \
+                    int(PD_major.biologia)
+                informatyka_r = wyniki_matury_list[0]['informatyka_r'] * \
+                    int(PD_major.informatyka)
+                geografia_r = wyniki_matury_list[0]['geografia_r'] * \
+                    int(PD_major.geografia)
+
+                fizyka_p = wyniki_matury_list[0]['fizyka_p']
+                chemia_p = wyniki_matury_list[0]['chemia_p'] * \
+                    int(PD_major.chemia)
+                biologia_p = wyniki_matury_list[0]['biologia_p'] * \
+                    int(PD_major.biologia)
+                informatyka_p = wyniki_matury_list[0]['informatyka_p'] * \
+                    int(PD_major.informatyka)
+                geografia_p = wyniki_matury_list[0]['geografia_p'] * \
+                    int(PD_major.geografia)
+
+                PD = max(
+                    2.5 * max(fizyka_r, chemia_r, biologia_r,
+                              informatyka_r, geografia_r),
+                    max(fizyka_p, chemia_p, biologia_p,
+                        informatyka_p, geografia_p),
+                    max(fizyka_p + fizyka_r * 1.5, chemia_p + chemia_r * 1.5,
+                        biologia_p + biologia_r * 1.5, informatyka_p + informatyka_r * 1.5,
+                        geografia_p + geografia_r * 1.5)
+                )
+
+            M = max(matematyka_r * 2.5, matematyka_p,
+                    matematyka_p + matematyka_r * 1.5)
+            JO = max(angielski_p * 0.1, angielski_r * 0.25)
+            JP = 0.1 * max(polski_p, polski_r)
+            is_condition = True
+            score = M + JO + JP + PD
         else:
-            fizyka_r = wyniki_matury.fizyka_r * PD_major.fizyka
-            chemia_r = wyniki_matury.chemia_r * PD_major.chemia
-            biologia_r = wyniki_matury.biologia_r * PD_major.biologia
-            informatyka_r = wyniki_matury.informatyka_r * PD_major.informatyka
-            geografia_r = wyniki_matury.geografia_r * PD_major.geografia
+            is_condition = False
 
-            fizyka_p = wyniki_matury.fizyka_p * PD_major.fizyka
-            chemia_p = wyniki_matury.chemia_p * PD_major.chemia
-            biologia_p = wyniki_matury.biologia_p * PD_major.biologia
-            informatyka_p = wyniki_matury.informatyka_p * PD_major.informatyka
-            geografia_p = wyniki_matury.geografia_p * PD_major.geografia
+        print(score, "score")
 
-            PD = max(
-                2.5 * max(fizyka_r, chemia_r, biologia_r,
-                          informatyka_r, geografia_r),
-                max(fizyka_p, chemia_p, biologia_p, informatyka_p, geografia_p),
-                max(fizyka_p + fizyka_r * 1.5, chemia_p + chemia_r * 1.5,
-                    biologia_p + biologia_r * 1.5, informatyka_p + informatyka_r * 1.5,
-                    geografia_p + geografia_r * 1.5)
-            )
-
-        M = max(matematyka_r * 2.5, matematyka_p,
-                matematyka_p + matematyka_r * 1.5)
-        JO = max(angielski_p * 0.1, angielski_r * 0.25)
-        JP = 0.1 * max(polski_p, polski_r)
-        is_condition = True
-        score = M + JO + JP + PD
-    else:
-        is_condition = False
-
-    # Wynik w formie JSON
-    result = {
-        'score': score,
-        'is_condition': is_condition,
-    }
-    return JsonResponse(result)
+        # Wynik w formie JSON
+        result = {
+            'score': score,
+            'is_condition': is_condition,
+        }
+        return JsonResponse(result)
 
 
 def user_qualified(qualified_list, users, applications):
+    sum = 0
     for user in users:
         if user not in qualified_list:
             if user not in applications.user:
-                return False
-    return True
+                sum += 1
+        else:
+            sum += 1
+    return sum >= len(users)
 
 
 def sortApplications(applications):
@@ -142,16 +189,17 @@ def qualify_stacks(request):
         for user in users:
             user_applications = applications.user
             compiting_applications.append(
-                sorted(applications, key=lambda x: x.preference)[0])
-        stop_condition = user_qualified(qualified, users, applications)
+                sorted(user_applications, key=lambda x: x.preference)[0])
 
-    for application in sorted_applications:
-        miejsca = ilosc_linii_w_pliku(f'{application.major}.txt')
-        app_major = application.major
-        if miejsca < limits.app_major:
-            zapisz_do_pliku(f'{application.major}.txt', application.user)
-        compiting_applications.remove(application)
-    sorted_applications = sortApplications(compiting_applications)
+        sorted_applications = sortApplications(compiting_applications)
+
+        for application in sorted_applications:
+            miejsca = ilosc_linii_w_pliku(f'{application.major}.txt')
+            app_major = application.major
+            if miejsca < limits.app_major:
+                zapisz_do_pliku(f'{application.major}.txt', application.user)
+            compiting_applications.remove(application)
+        stop_condition = user_qualified(qualified, users, applications)
 
 
 def find_row(table, val_to_find):

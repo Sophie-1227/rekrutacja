@@ -15,7 +15,7 @@ a:visited {
 /* Applies to all html files in body */
 body {
   font-family: "Helvetica", Sans-Serif;
-  background-image: url("../img/Politechnika-Wrocławska.jpg");
+  background-image: url("../img/Politechnika_Wroclawska.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -75,6 +75,7 @@ a:hover {
   float: left;
   align-items: right;
   color: black;
+  font-weight: bold;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -90,6 +91,8 @@ a:hover {
 .dropdown-content a:hover {
   background-color: #585353;
   color: black;
+  font-weight: bold;
+
 }
 
 /* Rozwijane Menu */
@@ -103,6 +106,7 @@ a:hover {
   border: none;
   outline: none;
   color: black;
+  font-weight: bold;
   background-color: inherit;
   margin: 0;
   padding: 14px 16px;
@@ -159,4 +163,26 @@ a:hover {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+.tile {
+  width: 300px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: height 0.3s ease-in-out;
+}
+
+.name {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.description {
+  padding: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
 }
