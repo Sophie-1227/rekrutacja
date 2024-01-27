@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from myapp.models import Applications, Matura_results, Majors, Documents_matura, AuthUser
 from django.shortcuts import get_object_or_404
 from django.db.models import Max
+import pandas as pd
 
 
 # calculating points for each application
@@ -121,22 +122,19 @@ def calculate_score(request):
             score = M + JO + JP + PD
             Applications.objects.filter(user_id=user).update(
                 score=score, is_condition=is_condition)
-            print(score, "poza petlą")
         else:
             is_condition = False
             Applications.objects.filter(user_id=user).update(
                 is_condition=is_condition)
-
-        print(score, "score")
-        # score = 0
 
 
 def user_qualified(qualified_list, users, applications):
     sum = 0
     for user in users:
         if user not in qualified_list:
-            if user not in applications.user:
-                sum += 1
+            for application in applications:
+                if user == application.user_id:
+                    sum += 1
         else:
             sum += 1
     return sum >= len(users)
@@ -145,15 +143,13 @@ def user_qualified(qualified_list, users, applications):
 def sortApplications(applications):
     if len(applications) <= 1:
         return applications
-
-    pivot_row = applications[len(applications) // 2]
-    pivot_value = pivot_row[7]
-
-    less = [row for row in applications if row[7] < pivot_value]
-    equal = [row for row in applications if row[7] == pivot_value]
-    greater = [row for row in applications if row[7] > pivot_value]
-
-    return sortApplications(less, 1) + equal + sortApplications(greater, 1)
+    pivot = applications[len(applications) // 2]
+    print(pivot)
+    pivot_score = pivot.score
+    left = [x for x in applications if x.score < pivot_score]
+    middle = [x for x in applications if x.score == pivot_score]
+    right = [x for x in applications if x.score > pivot_score]
+    return sortApplications(right) + middle + sortApplications(left)
 
 
 def ilosc_linii_w_pliku(file_name):
@@ -164,7 +160,7 @@ def ilosc_linii_w_pliku(file_name):
 
 def zapisz_do_pliku(file_name, tekst):
     with open(file_name, 'a') as plik:
-        plik.write(tekst + '\n')
+        plik.write(str(tekst) + '\n')
 
 
 def wyczysc_plik(file_name):
@@ -174,11 +170,15 @@ def wyczysc_plik(file_name):
 
 def qualify_stacks(request):
     applications = Applications.objects.all()
-    limits = Majors.objects.values('major', 'limit', flat=True)
+    limits_query = Majors.objects.values('major', 'limit')
+    limits = pd.DataFrame.from_records(limits_query)
+    print(limits)
     users = AuthUser.objects.values_list('username', flat=True).distinct()
+    user_ids = AuthUser.objects.values_list('id', flat=True).distinct()
     qualified = []
     compiting_applications = []
-    stop_condition = user_qualified(qualified, users, applications)
+    stop_condition = user_qualified(qualified, user_ids, applications)
+    user_applications = []
 
     for kierunek in limits.major:
         file_name = f'{kierunek}.txt'
@@ -186,17 +186,21 @@ def qualify_stacks(request):
     while stop_condition:
         for kierunek in limits.major:
             wyczysc_plik(f'{kierunek}.txt')
-        for user in users:
-            user_applications = applications.user
+        for user in user_ids:
+            for application in applications:
+                if (application.user_id == user):
+                    user_applications.append(application)
             compiting_applications.append(
                 sorted(user_applications, key=lambda x: x.preference)[0])
+            user_applications = []
 
         sorted_applications = sortApplications(compiting_applications)
 
         for application in sorted_applications:
             miejsca = ilosc_linii_w_pliku(f'{application.major}.txt')
             app_major = application.major
-            if miejsca < limits.app_major:
+            limit = (limits[limits['major'] == app_major].values[0])[1]
+            if miejsca < limit:
                 zapisz_do_pliku(f'{application.major}.txt', application.user)
             compiting_applications.remove(application)
         stop_condition = user_qualified(qualified, users, applications)
