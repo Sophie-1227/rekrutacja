@@ -259,7 +259,7 @@ class Applications(models.Model):
     tour = models.IntegerField(null=True)
     is_active = models.BooleanField(default=True)
     is_condition = models.BooleanField(default=False)
-    score = models.IntegerField(null=True)
+    score = models.FloatField(null=True)
     is_paid = models.BooleanField(default=False)
     is_qualified = models.BooleanField(null=True)
     are_documents = models.BooleanField(default=False)

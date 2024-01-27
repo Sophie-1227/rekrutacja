@@ -121,6 +121,9 @@ def calculate_score(request):
         else:
             is_condition = False
 
+        Applications.objects.filter(user_id=user).update(
+            score=score),
+
         print(score, "score")
 
         # Wynik w formie JSON
