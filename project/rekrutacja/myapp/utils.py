@@ -125,13 +125,7 @@ def calculate_score(request):
             score=score),
 
         print(score, "score")
-
-        # Wynik w formie JSON
-        result = {
-            'score': score,
-            'is_condition': is_condition,
-        }
-        return JsonResponse(result)
+        score = 0
 
 
 def user_qualified(qualified_list, users, applications):
