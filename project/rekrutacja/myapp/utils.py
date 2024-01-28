@@ -143,7 +143,6 @@ def sortApplications(applications):
         return applications
     pivot = applications[len(applications) // 2]
     pivot_score = pivot.score or 0
-    print(pivot_score)
     left = [x for x in applications if (x.score or 0) < pivot_score]
     middle = [x for x in applications if (x.score or 0) == pivot_score]
     right = [x for x in applications if (x.score or 0) > pivot_score]

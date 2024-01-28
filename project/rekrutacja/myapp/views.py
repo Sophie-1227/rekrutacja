@@ -147,8 +147,10 @@ def user_ofer(request):
 def admin_view(request):
     start_time = time.time()
     create_users()
-    create_scores()
-    generate_applications()
+    # create_scores()
+    create_passing_scores()
+    # generate_applications()
+    generate_applications_multiple_preferences()
     end_time = time.time()
     time_elapsed = end_time - start_time
     print(time_elapsed)
