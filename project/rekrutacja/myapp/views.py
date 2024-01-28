@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .utils import *
 from .generate_test_data import *
 from django.contrib.auth.forms import UserCreationForm
+import time
 
 import logging
 
@@ -144,24 +145,40 @@ def user_ofer(request):
 
 @csrf_exempt
 def admin_view(request):
+    start_time = time.time()
     create_users()
     create_scores()
     generate_applications()
-    return JsonResponse({'error': 'Data base updated'})
+    end_time = time.time()
+    time_elapsed = end_time - start_time
+    print(time_elapsed)
+    return JsonResponse({'success': 'Data base updated'})
 
 
 @csrf_exempt
 def calculate(request):
+    start_time = time.time()
     calculate_score(request=request)
-    return JsonResponse({'sucess': 'Score calculation completed'})
+    end_time = time.time()
+    time_elapsed = end_time - start_time
+    print(time_elapsed)
+    return JsonResponse({'success': 'Score calculation completed'})
 
 
 @csrf_exempt
 def qualify_sort_view(request):
+    start_time = time.time()
     qualify_sort(request=request)
+    end_time = time.time()
+    time_elapsed = end_time - start_time
+    print(time_elapsed)
     return JsonResponse({'success': 'Lists have been rendered'})
 
 
 def qualify_stack_view(request):
+    start_time = time.time()
     qualify_stacks(request=request)
+    end_time = time.time()
+    time_elapsed = end_time - start_time
+    print(time_elapsed)
     return JsonResponse({'success': 'Lists have been rendered'})

@@ -2,7 +2,7 @@ import random
 from myapp.models import Matura_results, Applications, Majors
 from django.contrib.auth.models import User
 
-USERS_NUMBER = 100
+USERS_NUMBER = 600
 
 
 def create_users(num_users=USERS_NUMBER):
@@ -44,6 +44,6 @@ def generate_applications():
 
 
 if __name__ == '__main__':
-    # create_users()
-    # create_scores()
+    create_users()
+    create_scores()
     generate_applications()

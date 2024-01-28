@@ -143,9 +143,10 @@ def sortApplications(applications):
         return applications
     pivot = applications[len(applications) // 2]
     pivot_score = pivot.score or 0
-    left = [x for x in applications if x.score < pivot_score]
-    middle = [x for x in applications if x.score == pivot_score]
-    right = [x for x in applications if x.score > pivot_score]
+    print(pivot_score)
+    left = [x for x in applications if (x.score or 0) < pivot_score]
+    middle = [x for x in applications if (x.score or 0) == pivot_score]
+    right = [x for x in applications if (x.score or 0) > pivot_score]
     return sortApplications(right) + middle + sortApplications(left)
 
 
@@ -196,7 +197,7 @@ def qualify_stacks(request):
             miejsca = ilosc_linii_w_pliku(f'{application.major}.txt')
             app_major = application.major
             limit = (limits[limits['major'] == app_major].values[0])[1]
-            if miejsca < limit and application.score > 0:
+            if miejsca < limit and (application.score or 0) > 0:
                 zapisz_do_pliku(f'{application.major}.txt', application.user)
             compiting_applications.remove(application)
         stop_condition = user_qualified(qualified, users, applications)
@@ -265,7 +266,7 @@ def qualify_sort(request):
         if application.user_id not in qualified:
             app_major = application.major
             threshold = (limits[limits['major'] == app_major].values[0])[2]
-            if application.score > threshold:
+            if (application.score or 0) > threshold:
                 if os.path.exists(f'{app_major}_sort.txt'):
                     miejsca = (limits[limits['major'] ==
                                app_major].values[0])[1] - ilosc_linii_w_pliku(
