@@ -135,7 +135,12 @@ def user_zgloszenia(request):
 
 
 def user_ofer(request):
-    return render(request, 'offer.html')
+    # return render(request, 'offer.html')
+    pass
+
+
+def pass_change(request):
+    pass
 
 
 # def user_settings(request):

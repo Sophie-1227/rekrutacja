@@ -19,8 +19,9 @@ urlpatterns = [
     path('admin_view/', views.admin_view, name='admin_view'),
     path('qualify_stack/', views.qualify_stack_view, name='qualify_stack'),
     path('qualify_sort/', views.qualify_sort_view, name='qualify_sort'),
-    path('change-password/', PasswordChangeView.as_view(), name='password_change'),
-    path('change-password/done/', PasswordChangeDoneView.as_view(),
-         name='password_change_done'),
+    path('change-password/', views.pass_change, name='password_change'),
+    # path('change-password/', PasswordChangeView.as_view(), name='password_change'),
+    # path('change-password/done/', PasswordChangeDoneView.as_view(),
+    #      name='password_change_done'),
     path('calculate_score/', views.calculate, name='score_calculate')
 ]

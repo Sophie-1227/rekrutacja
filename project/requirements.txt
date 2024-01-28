@@ -1,4 +1,3 @@
-asciinema==2.0.2
 asgiref==3.7.2
 attrs==19.3.0
 Automat==0.8.0
